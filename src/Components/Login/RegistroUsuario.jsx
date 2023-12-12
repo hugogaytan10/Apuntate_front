@@ -101,7 +101,7 @@ export const RegistroUsuario = () => {
 
 
             <div id='divPasoDos' className='w-11/12 m-auto bg-white mt-10 transition-all opacity-0 md:w-2/4'>
-                <h3 className='font-bold text-xl ml-4'>Lugar de residencia</h3>
+                <h3 className='font-bold text-xl ml-4'>Lugar de Residencia</h3>
                 <div className='w-10/12 m-auto mt-10'>
 
                     <div className="form-group">

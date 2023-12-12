@@ -5,7 +5,7 @@ export const DetallesTrabajo = () => {
         <div className='bg-fondo min-h-screen'>
             <div className='contenedor-trabajo'>
                 <span className='franja-lateral'></span>
-                <h3 className='text-lg font-bold p-2'>Estilista</h3>
+                <h3 className='text-2xl font-extrabold p-2'>Estilista</h3>
                 <p>
                     En Mujer Bella, estamos en busca de
                     un estilista talentoso y apasionado
@@ -19,7 +19,7 @@ export const DetallesTrabajo = () => {
                     clientes diversos y contribuir al éxito
                     de nuestro salón.
                 </p>
-                <ul className='contenedor-etiquetas flex flex-wrap justify-around items-center'>
+                <ul className='contenedor-etiquetas flex flex-wrap justify-around items-center gap-2'>
                     <li>Tiempo completo</li>
                     <li>Hace un día</li>
                     <li>Moroleón</li>

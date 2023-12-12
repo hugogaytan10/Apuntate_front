@@ -11,13 +11,37 @@ export const Inicio = () => {
                     <input type="text" className='inputBuscador' placeholder='Buscar empleo' />
                     <img src={buscador} alt="buscador" />
                 </div>
-                <button className='block m-auto w-2/4 bg-primario text-gray-50 rounded-sm p-1 mb-2'>BUSCAR</button>
+                <button className='block m-auto w-2/4 bg-primario text-gray-50 rounded-sm p-1 mb-2 md:w-1/4'>BUSCAR</button>
             </div>
 
-            <h3 className='font-bold ml-4 mt-10 mb-4 text-lg'>EMPLEOS</h3>
+            <h3 className='font-bold ml-4 mt-10 mb-4 text-lg md:text-3xl'>EMPLEOS</h3>
             <div className='flex flex-wrap w-full justify-center mt-4 gap-4'>
 
-                <div className='contenedor-empleo relative flex flex-wrap'>
+                <div className='contenedor-empleo relative flex flex-wrap md:w-1/4'>
+                    <span className='franja-lateral'></span>
+                    <p className='block w-full ml-4 font-bold text-lg'>Estilista</p>
+                    <div className='block w-full'>
+                        <ul className='flex flex-wrap justify-around items-center'>
+                            <ol className='text-detalles'>Hace un día</ol>
+                            <ol className='text-detalles'>Tiempo completo</ol>
+                            <ol className='text-detalles'>Moroleón</ol>
+                        </ul>
+                    </div>
+                    <NavLink className='bg-gris-oscuro text-gray-50 m-auto w-2/4 p-1 rounded-sm text-lg text-center' to='/detallesTrabajo'>Ver trabajo</NavLink>
+                </div>
+                <div className='contenedor-empleo relative flex flex-wrap md:w-1/4'>
+                    <span className='franja-lateral'></span>
+                    <p className='block w-full ml-4 font-bold text-lg'>Estilista</p>
+                    <div className='block w-full'>
+                        <ul className='flex flex-wrap justify-around items-center'>
+                            <ol className='text-detalles'>Hace un día</ol>
+                            <ol className='text-detalles'>Tiempo completo</ol>
+                            <ol className='text-detalles'>Moroleón</ol>
+                        </ul>
+                    </div>
+                    <NavLink className='bg-gris-oscuro text-gray-50 m-auto w-2/4 p-1 rounded-sm text-lg text-center' to='/detallesTrabajo'>Ver trabajo</NavLink>
+                </div>
+                <div className='contenedor-empleo relative flex flex-wrap md:w-1/4'>
                     <span className='franja-lateral'></span>
                     <p className='block w-full ml-4 font-bold text-lg'>Estilista</p>
                     <div className='block w-full'>
