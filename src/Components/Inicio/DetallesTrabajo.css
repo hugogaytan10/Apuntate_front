@@ -1,0 +1,25 @@
+.contenedor-trabajo{
+    background-color: #fff;
+    border: 1px solid rgba(91, 164, 164, 0.31);
+    box-shadow: 0px 0px 4px 0px #5BA4A4;
+    border-radius: 4px;
+    position: relative;
+    padding-left: 10px;
+    width: 90%;
+    margin: auto;
+    margin-top: 15px;
+}
+.contenedor-trabajo > p{
+    color: #858585;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.contenedor-etiquetas > li{
+    background-color: #5BA4A4;
+    padding: 2px 4px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 700;
+}
