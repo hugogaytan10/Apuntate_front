@@ -1,9 +1,9 @@
-export type Usuario = {
+export type Empresa = {
     id: string;
     correo: string;
     tipo: string;
     contrasenia: string;
-    nombre: string;
+    nombreEmpresa: string;
     edad: number;
     telefono: string;
     estadoCivil: string;
@@ -12,5 +12,5 @@ export type Usuario = {
     colonia: string;
     estado: string;
     codigoPostal: string;
+    giro:string;
 }
-

@@ -9,6 +9,8 @@ import { AppContext } from '../Contexto/AppContext'
 import { TipoRegistro } from '../Login/TipoRegistro'
 import { RegistroUsuario } from '../Login/RegistroUsuario'
 import { RegistroCompania } from '../Login/RegistroCompania'
+import { InicioAdmin } from '../Admin/InicioAdmin'
+import { Postulados } from '../Admin/Postulados'
 export const Rutas = () => {
     const contexto = useContext(AppContext);
     return (
@@ -45,6 +47,8 @@ export const Rutas = () => {
                         <Route path='/inicio' element={<Inicio />}></Route>
                         <Route path='/perfil' element={<Perfil />}></Route>
                         <Route path='/detallesTrabajo' element={<DetallesTrabajo />}></Route>
+                        <Route path='/inicioAdmin' element={<InicioAdmin />}></Route>
+                        <Route path='/postuladosAdmin' element={<Postulados />}></Route>
                     </Routes>
                 </div>
 
@@ -55,6 +59,7 @@ export const Rutas = () => {
                         <li><NavLink to='/inicio' className='text-white text-lg' >Inicio</NavLink></li>
                         <li><NavLink to='/perfil' className='text-white text-lg' >Perfil</NavLink></li>
                         <li><NavLink to='/login' className='text-white text-lg' >Iniciar sesión</NavLink></li>
+                        <li><NavLink to='/inicioAdmin' className='text-white text-lg' >Administrador</NavLink></li>
                     </ul>
                 </div>
             </div >
