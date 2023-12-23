@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Empresa } from '../Modelos/Empresa'
 import { ErrorMessage, Formik } from 'formik';
 import { empresaDosSchema, empresaSchema, empresaTresSchema } from '../EsquemasValidacion/Empresa';
+import { clickBtn } from './confetti';
 export const RegistroCompania = () => {
     const [paso, setPaso] = useState(0);
     const [registro, setRegistro] = useState<Partial<Empresa>>();
@@ -89,7 +90,7 @@ export const RegistroCompania = () => {
                 }}
                 validationSchema={empresaSchema}
                 onSubmit={(values) => {
-                    CambioColor();
+                    clickBtn()
                     setRegistro({
                         ...registro,
                         nombreEmpresa: values.nombreEmpresa,
@@ -99,6 +100,9 @@ export const RegistroCompania = () => {
                         fecha: values.fecha,
                         giro: values.giro
                     })
+                    setTimeout(() => {
+                        CambioColor();
+                    }, 2000);
                 }}
             >
                 {({
@@ -208,7 +212,7 @@ export const RegistroCompania = () => {
                 }}
                 validationSchema={empresaDosSchema}
                 onSubmit={(values) => {
-                    CambioColor();
+                    clickBtn();
                     setRegistro({
                         ...registro,
                         calle: values.calle,
@@ -216,6 +220,9 @@ export const RegistroCompania = () => {
                         colonia: values.colonia,
                         estado: values.estado
                     })
+                    setTimeout(() => {
+                        CambioColor();
+                    }, 2000);
                 }}
             >
                 {({
@@ -317,13 +324,15 @@ export const RegistroCompania = () => {
                 }}
                 validationSchema={empresaTresSchema}
                 onSubmit={(values) => {
-                    CambioColor();
+                    clickBtn();
                     setRegistro({
                         ...registro,
                         contrasenia: values.contrasenia,
                         correo: values.correo
                     })
-
+                    setTimeout(() => {
+                        CambioColor();
+                    }, 2000);
                     //envio a la base de datos 
                     //guardar en local storage las credenciales
 

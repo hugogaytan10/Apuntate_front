@@ -181,7 +181,7 @@ export const RegistroUsuario = () => {
                             </div>
 
                             <button
-                                className='canvas-confetti-btn bg-gris-oscuro p-2 rounded-sm text-gray-50 mb-10'
+                                className='bg-gris-oscuro p-2 rounded-sm text-gray-50 mb-10'
 
                                 type='submit'
                             >

@@ -1,5 +1,4 @@
 import confetti from "https://cdn.skypack.dev/canvas-confetti@1.9.2";
-const confettiBtn = document.querySelector(".canvas-confetti-btn");
 let exploding = false;
 
 const defaults = {
@@ -40,6 +39,8 @@ export const clickBtn = async () => {
             requestAnimationFrame(frame);
         }
     }());
-   
+    setTimeout(() => {
+        exploding = false;
+    }, 2000)
 
 }

@@ -2,7 +2,7 @@ import { object, string, number, ref } from "yup";
 
 export let empresaSchema = object({
     nombreEmpresa: string().required("Nombre requerido"),
-    giro: number().positive().required('Giro requerido'),
+    giro: string().required('Giro requerido'),
     edad: number().positive().required('Edad requerida'),
     telefono: number().positive().required('teléfono requerido'),
 });
