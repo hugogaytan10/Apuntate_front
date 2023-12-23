@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "animate.css";
 *{
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;

@@ -31,8 +31,10 @@ export const Rutas = () => {
                         <div className="flex-none hidden lg:block ">
                             <ul className="menu menu-horizontal">
                                 {/* Navbar menu content here */}
-                                <li><a className='text-white'>Inicio</a></li>
-                                <li><a className='text-white'>Perfil</a></li>
+                                <li><NavLink className='text-white' to='/inicio'>Inicio</NavLink></li>
+                                <li><NavLink className='text-white' to='/perfil'>Perfil</NavLink></li>
+                                <li><NavLink className='text-white' to='/login'>Iniciar sesión</NavLink></li>
+                                <li><NavLink className='text-white' to='/inicioAdmin'>Administrador</NavLink></li>
                             </ul>
                         </div>
                     </div>

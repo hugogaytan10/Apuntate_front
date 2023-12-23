@@ -2,6 +2,8 @@ import { ErrorMessage, Formik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import { usuarioDosSchema, usuarioSchema, usuarioTresSchema } from '../EsquemasValidacion/Usuario';
 import { Usuario } from '../Modelos/Usuario';
+import { clickBtn } from './confetti';
+
 export const RegistroUsuario = () => {
     const [paso, setPaso] = useState(0);
     const [registro, setRegistro] = useState<Partial<Usuario>>();
@@ -90,7 +92,7 @@ export const RegistroUsuario = () => {
                 }}
                 validationSchema={usuarioSchema}
                 onSubmit={(values) => {
-                    CambioColor();
+                    clickBtn();
                     setRegistro({
                         ...registro,
                         nombre: values.nombreCompleto,
@@ -98,7 +100,10 @@ export const RegistroUsuario = () => {
                         telefono: values.telefono,
                         estadoCivil: values.estadoCivil,
                         fecha: values.fecha
-                    })
+                    });
+                    setTimeout(() => {
+                        CambioColor();
+                    }, 1000)
                 }}
             >
                 {({
@@ -175,7 +180,8 @@ export const RegistroUsuario = () => {
                                 </select>
                             </div>
 
-                            <button className='bg-gris-oscuro p-2 rounded-sm text-gray-50 mb-10'
+                            <button
+                                className='canvas-confetti-btn bg-gris-oscuro p-2 rounded-sm text-gray-50 mb-10'
 
                                 type='submit'
                             >
@@ -196,7 +202,7 @@ export const RegistroUsuario = () => {
                 }}
                 validationSchema={usuarioDosSchema}
                 onSubmit={(values) => {
-                    CambioColor();
+                    clickBtn();
                     setRegistro({
                         ...registro,
                         calle: values.calle,
@@ -204,6 +210,9 @@ export const RegistroUsuario = () => {
                         colonia: values.colonia,
                         estado: values.estado
                     })
+                    setTimeout(() => {
+                        CambioColor();
+                    }, 1000);
                 }}
             >
                 {({
@@ -305,13 +314,15 @@ export const RegistroUsuario = () => {
                 }}
                 validationSchema={usuarioTresSchema}
                 onSubmit={(values) => {
-                    CambioColor();
                     setRegistro({
                         ...registro,
                         contrasenia: values.contrasenia,
                         correo: values.correo
                     })
-                    
+                    clickBtn();
+                    setTimeout(()=>{
+                        CambioColor();
+                    },1000)
                     //envio a la base de datos 
                     //guardar en local storage las credenciales
 
@@ -386,6 +397,7 @@ export const RegistroUsuario = () => {
                 )}
 
             </Formik>
+
 
 
         </div>
