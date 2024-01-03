@@ -27,7 +27,14 @@
     font-size: 16px;
     transition: border-color 0.3s ease;
 }
-
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
 .form-group label {
     position: absolute;
     left: 12px;
@@ -37,12 +44,14 @@
     transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border-color: #5BA4A4;
     outline: none;
 }
 
 .form-group input+label,
+.form-group textarea+label, 
 .form-group input:not(:placeholder-shown)+label {
     top: -6px;
     font-size: 12px;
@@ -62,40 +71,6 @@
 
 
 
-
-.canvas-confetti-btn {
-    
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    position: relative;
-
-    
-}
-
-@keyframes shake {
-
-    10%,
-    90% {
-        transform: translate3d(0, 0, 0);
-    }
-
-    20%,
-    80% {
-        transform: translate3d(0, 0, 0);
-    }
-
-    30%,
-    50%,
-    70% {
-        transform: translate3d(0, -4px, 0);
-    }
-
-    40%,
-    60% {
-        transform: translate3d(0, 4px, 0);
-    }
-}
 
 
 

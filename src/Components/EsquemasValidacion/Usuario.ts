@@ -24,3 +24,5 @@ export let usuarioTresSchema = object({
         .required("La confirmación de contraseña es requerida")
         .oneOf([ref('contrasenia')], "Las contraseñas deben coincidir")
 });
+
+export let usuarioCompletoSchema = object({ ...usuarioSchema.fields, ...usuarioDosSchema.fields, ...usuarioTresSchema.fields });

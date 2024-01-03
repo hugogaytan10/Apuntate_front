@@ -15,7 +15,7 @@ export const Postulados = () => {
                     <p className='block w-full ml-4 font-bold text-lg'>Alan Brito</p>
 
                     <div className='flex justify-around w-full'>
-                        <NavLink className='bg-primario btn text-gray-50 m-auto w-5/12 p-1 rounded-sm text-base text-center' to='/detallesTrabajo'>Ver postulante</NavLink>
+                        <NavLink className='bg-primario btn text-gray-50 m-auto w-5/12 p-1 rounded-sm text-base text-center' to={`/postulado/${1}`}>Ver postulante</NavLink>
                         <button className='bg-white btn border-red-500 text-red-500 m-auto  p-1 rounded-sm text-base text-center'>Eliminar</button>
                     </div>
                 </div>

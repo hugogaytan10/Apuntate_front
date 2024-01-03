@@ -94,18 +94,6 @@ export const InicioAdmin = () => {
                                     </div>
                                     {errors.titulo && touched.titulo && <ErrorMessage name='titulo' component="div" className='error' />}
 
-                                    <div className="form-group">
-                                        <input
-                                            type="text"
-                                            placeholder=" "
-                                            name="descripcion"
-                                            onChange={handleChange('descripcion')}
-                                            onBlur={handleBlur('descripcion')}
-                                            value={values.descripcion}
-                                        />
-                                        <label>Descripción</label>
-                                    </div>
-                                    {errors.descripcion && touched.descripcion && <ErrorMessage name='descripcion' component="div" className='error' />}
 
                                     <div className="form-group">
                                         <input
@@ -160,7 +148,19 @@ export const InicioAdmin = () => {
                                         <label>Empresa</label>
                                     </div>
                                     {errors.empresa && touched.empresa && <ErrorMessage name='empresa' component="div" className='error' />}
-
+                                    <div className="form-group">
+                                        <textarea
+                                           
+                                            type="text"
+                                            placeholder=" "
+                                            name="descripcion"
+                                            onChange={handleChange('descripcion')}
+                                            onBlur={handleBlur('descripcion')}
+                                            value={values.descripcion}
+                                        />
+                                        <label>Descripción</label>
+                                    </div>
+                                    {errors.descripcion && touched.descripcion && <ErrorMessage name='descripcion' component="div" className='error' />}
                                     <div className='w-full flex justify-around'>
                                         <button
                                             className='bg-blue-600 p-2 rounded-lg text-gray-50 mb-10 btn'
@@ -307,7 +307,7 @@ export const InicioAdmin = () => {
                 </div>
             </dialog>
 
-            {/* MODAL DE ACUTALIZAR */}
+            {/* MODAL DE ELIMINAR */}
             <dialog id="my_modal_3" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Registrar empleo</h3>

@@ -11,6 +11,7 @@ import { RegistroUsuario } from '../Login/RegistroUsuario'
 import { RegistroCompania } from '../Login/RegistroCompania'
 import { InicioAdmin } from '../Admin/InicioAdmin'
 import { Postulados } from '../Admin/Postulados'
+import { Postulado } from '../Admin/Postulado'
 export const Rutas = () => {
     const contexto = useContext(AppContext);
     return (
@@ -51,6 +52,7 @@ export const Rutas = () => {
                         <Route path='/detallesTrabajo' element={<DetallesTrabajo />}></Route>
                         <Route path='/inicioAdmin' element={<InicioAdmin />}></Route>
                         <Route path='/postuladosAdmin' element={<Postulados />}></Route>
+                        <Route path='/postulado/:id' element={<Postulado />}></Route>
                     </Routes>
                 </div>
 

@@ -11,7 +11,16 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         id: "",
         contrasenia: "",
         correo: "e",
-        tipo: ""
+        tipo: "",
+        nombre: "",
+        calle: "",
+        codigoPostal: "",
+        colonia: "",
+        edad: 0,
+        estado: "",
+        estadoCivil: "",
+        fecha: "",
+        telefono: "",
     })
     return (
         <AppContext.Provider

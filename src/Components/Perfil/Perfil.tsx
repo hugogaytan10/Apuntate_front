@@ -1,5 +1,6 @@
 import React from 'react'
 import { ErrorMessage, Formik } from 'formik';
+import { usuarioCompletoSchema, usuarioSchema } from '../EsquemasValidacion/Usuario';
 
 export const Perfil = () => {
     return (
@@ -20,6 +21,7 @@ export const Perfil = () => {
                     contrasenia: "",
                     confirmarContrasenia: "",
                 }}
+                validationSchema={usuarioCompletoSchema}
                 onSubmit={(values) => {
 
                 }}
@@ -34,7 +36,7 @@ export const Perfil = () => {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <div id='divPasoUno' className='w-11/12 m-auto bg-white mt-10 transition-all md:w-2/4'>
+                    <div id='divPasoUno' className='w-11/12 m-auto mb-20 bg-white mt-10 transition-all md:w-2/4'>
                         <h3 className='font-bold text-xl ml-4'>Datos Personales</h3>
                         <form className='w-10/12 m-auto mt-10' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
                             <div className="form-group">
@@ -179,7 +181,7 @@ export const Perfil = () => {
                             </div>
                             {errors.confirmarContrasenia && touched.confirmarContrasenia && <ErrorMessage name='confirmarContrasenia' component="div" className='error' />}
 
-                            <button className='bg-blue-700 p-2 rounded-sm text-gray-50 mb-10'
+                            <button className='bg-blue-700 p-2 rounded-sm text-gray-50   w-3/4 m-auto block '
 
                                 type='submit'
                             >

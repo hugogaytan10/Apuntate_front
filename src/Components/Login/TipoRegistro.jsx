@@ -15,13 +15,13 @@ export const TipoRegistro = () => {
             <h3 className='relative text-white text-2xl text-center top-12'>¿Cómo deseas registrarte?</h3>
             <div
                 onClick={() => { navigate('/RegistroCompania') }}
-                className='h-72 w-72 bg-white rounded-full absolute top-20 left-1/2 -translate-x-1/2 flex flex-wrap flex-col justify-center items-center'>
+                className='h-72 w-72 bg-white rounded-full absolute top-20 left-1/2 -translate-x-1/2 flex flex-wrap flex-col justify-center items-center cursor-pointer'>
                 <img src={company} alt="compañia" />
                 <p className='text-2xl font-bold text-primario'>COMPAÑIA</p>
             </div>
             <div
                 onClick={() => { navigate('/RegistroUsuario') }}
-                className='h-72 w-72 bg-white rounded-full absolute top-96 left-1/2 -translate-x-1/2 flex flex-wrap flex-col justify-center items-center'>
+                className='h-72 w-72 bg-white rounded-full absolute top-96 left-1/2 -translate-x-1/2 flex flex-wrap flex-col justify-center items-center cursor-pointer'>
                 <img src={user} alt="usuario" />
                 <p className='text-2xl font-bold text-primario'>TRABAJADOR</p>
             </div>
