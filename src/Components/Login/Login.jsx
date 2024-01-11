@@ -3,20 +3,35 @@ import user from '../../assets/user.svg'
 import './Login.css'
 import { AppContext } from '../Contexto/AppContext'
 import { useNavigate } from 'react-router-dom';
+import { data } from 'autoprefixer';
 
 export const Login = () => {
     const contexto = useContext(AppContext);
     const navigate = useNavigate();
+
     const ManejoLogin = () => {
         const usuario = {
-            correo: 'hola',
-            contrasenia: 'a',
-            id: '1',
-            tipo: '1'
+           Email: document.getElementById('correo').value,
+           Contrasenia: document.getElementById('pass').value
         }
-        contexto.setUsuario(usuario)
-        navigate('/inicio');
-        console.log(contexto.usuario)
+        
+        fetch('http://localhost:8090/api/login', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuario)
+        }).then(response => response.json())
+            .then(data => {
+                if (data.usuario) {
+                    contexto.setUsuario(data.usuario);
+                    contexto.setToken(data.Token);
+                    navigate('/inicio');
+                } 
+                
+            })
+            .catch(err => console.log(err))
     }
     const Registro = () => {
         navigate('/TipoRegistro');
@@ -27,22 +42,22 @@ export const Login = () => {
                 <img src={user} alt='user' className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' />
             </div>
             <div className='contenedor-login bg-white relative top-20  border-primary shadow-lg '>
-                <h2 className='font-extrabold text-center text-4xl relative top-4'>LOGIN</h2>
+                <h2 className='font-extrabold text-center text-4xl relative top-4 text-gray-600'>LOGIN</h2>
 
-                <div className='w-3/4 m-auto relative top-20'>
+                <div className='w-3/4 m-auto relative top-20 text-gray-600'>
                     <div className="form-group">
-                        <input type="text" placeholder=" " id="name" />
+                        <input type="text"  className='bg-white' placeholder=" " id="correo" />
                         <label>Correo</label>
                     </div>
                     <div className="form-group top-4">
-                        <input type="password" placeholder=" " id="pass" />
+                        <input type="password"  className='bg-white' placeholder=" " id="pass" />
                         <label>Contraseña</label>
                     </div>
 
                     <div className=" w-52">
-                        <label className="cursor-pointer flex items-center gap-4 mt-10">
-                            <input type="checkbox" className="toggle toggle-accent"  />
-                            <span className="label-text">Recordar</span>
+                        <label className="cursor-pointer flex items-center gap-4 mt-10 ">
+                            <input type="checkbox" className="toggle toggle-accent text-primario"  />
+                            <span className="label-text text-gray-600">Recordar</span>
                         </label>
                     </div>
 

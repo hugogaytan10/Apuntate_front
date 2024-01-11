@@ -1,9 +1,11 @@
 import { object, string, number, ref } from "yup";
 
 export let usuarioSchema = object({
-    nombreCompleto: string().required("Nombre requerido"),
+    nombre: string().required("Nombre requerido"),
+    apellido: string().required("Apellido requerido"),
     edad: number().positive().required('Edad requerida'),
     telefono: number().positive().required('teléfono requerido'),
+    fecha: string().required("Fecha de nacimiento requerida"),
 });
 
 export let usuarioDosSchema = object({

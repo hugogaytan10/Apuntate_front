@@ -8,7 +8,7 @@ export const Postulado = () => {
         if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
             return navigator.clipboard.writeText(correo);
         }
-        
+
     }
     useEffect(() => {
         //traemos la informacion del usuario
@@ -45,6 +45,27 @@ export const Postulado = () => {
                 >COPIAR</div>
             </div>
 
+            <div className='flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 '>
+                <div className='w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center'>Estado</div>
+                <div className='w-3/4 bg-primario text-gray-50 rounded-r-md pl-2'>Guanajuato</div>
+            </div>
+
+            <div className='flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 '>
+                <div className='w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center'>Calle</div>
+                <div className='w-3/4 bg-primario text-gray-50 rounded-r-md pl-2'>Presa solis</div>
+            </div>
+
+            <div className='flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 '>
+                <div className='w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center'>Colonia</div>
+                <div className='w-3/4 bg-primario text-gray-50 rounded-r-md pl-2'>La manguita del valle</div>
+            </div>
+
+            <div className='flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 '>
+                <div className='w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center'>Código postal</div>
+                <div className='w-3/4 bg-primario text-gray-50 rounded-r-md pl-2'>38800</div>
+            </div>
+
+            <button className='btn bg-red-500 text-gray-50 m-auto block mt-10'>DESCARTAR</button>
         </div>
     )
 }

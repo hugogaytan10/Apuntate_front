@@ -22,23 +22,26 @@ export const Rutas = () => {
 
 
                 <div className="drawer-content flex flex-col">
-                    < div className="w-full navbar bg-gris-oscuro">
-                        <div className="flex-none lg:hidden">
-                            <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
-                                <img src={menu} alt='menu' className='h-10 w-10 ' htmlFor="my-drawer" />
-                            </label>
+                   
+                        < div className="w-full navbar bg-gris-oscuro">
+                            <div className="flex-none lg:hidden">
+                                <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
+                                    <img src={menu} alt='menu' className='h-10 w-10 ' htmlFor="my-drawer" />
+                                </label>
+                            </div>
+                            <div className="flex-1 px-2 mx-2 text-gray-50 font-bold justify-center md:justify-start">APUNTATE</div>
+                            <div className="flex-none hidden lg:block ">
+                                <ul className="menu menu-horizontal">
+                                    {/* Navbar menu content here */}
+                                    <li><NavLink className='text-white' to='/inicio'>Inicio</NavLink></li>
+                                    <li><NavLink className='text-white' to='/perfil'>Perfil</NavLink></li>
+                                    <li><NavLink className='text-white' to='/login'>Iniciar sesión</NavLink></li>
+                                    <li><NavLink className='text-white' to='/inicioAdmin'>Administrador</NavLink></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div className="flex-1 px-2 mx-2 text-gray-50 font-bold justify-center md:justify-start">APUNTATE</div>
-                        <div className="flex-none hidden lg:block ">
-                            <ul className="menu menu-horizontal">
-                                {/* Navbar menu content here */}
-                                <li><NavLink className='text-white' to='/inicio'>Inicio</NavLink></li>
-                                <li><NavLink className='text-white' to='/perfil'>Perfil</NavLink></li>
-                                <li><NavLink className='text-white' to='/login'>Iniciar sesión</NavLink></li>
-                                <li><NavLink className='text-white' to='/inicioAdmin'>Administrador</NavLink></li>
-                            </ul>
-                        </div>
-                    </div>
+                    
+
                     {/* Page content here */}
                     <Routes>
                         <Route path='/' element={<Inicio />}></Route>
@@ -51,7 +54,7 @@ export const Rutas = () => {
                         <Route path='/perfil' element={<Perfil />}></Route>
                         <Route path='/detallesTrabajo' element={<DetallesTrabajo />}></Route>
                         <Route path='/inicioAdmin' element={<InicioAdmin />}></Route>
-                        <Route path='/postuladosAdmin' element={<Postulados />}></Route>
+                        <Route path='/postuladosAdmin/:id' element={<Postulados />}></Route>
                         <Route path='/postulado/:id' element={<Postulado />}></Route>
                     </Routes>
                 </div>

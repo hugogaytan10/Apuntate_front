@@ -8,3 +8,28 @@
     padding: 0;
     margin: 0;
 }
+
+@media (prefers-color-schema: light) {
+    :root {
+        --gris-oscuro: #2C3A3A;
+        --fondo: #EFFAFA;
+        --primario: #5BA4A4;
+        --detalles: #858585;
+    }
+    .calendario{
+        background-color: #EFFAFA;
+    }
+    
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gris-oscuro: #2C3A3A;
+        --fondo: #EFFAFA;
+        --primario: #5BA4A4;
+        --detalles: #858585;
+    }
+    .calendario{
+        background-color: #2C3A3A;
+    }
+    
+}

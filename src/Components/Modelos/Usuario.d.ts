@@ -1,16 +1,19 @@
 export type Usuario = {
-    id: string;
-    correo: string;
+    Id?: string;
+    Email: string;
     tipo: string;
-    contrasenia: string;
-    nombre: string;
-    edad: number;
-    telefono: string;
-    estadoCivil: string;
-    fecha: string;
-    calle: string;
+    Contrasenia: string;
+    Nombre: string;
+    Apellido: string;
+    Edad: number;
+    Telefono: string;
+    EstadoCivil: string;
+    FechaNac: string;
+    Calle: string;
     colonia: string;
     estado: string;
-    codigoPostal: string;
+    CodigoPostal: string;
+    Direccion: string;  
+    Empresa_Id?: string;
 }
 

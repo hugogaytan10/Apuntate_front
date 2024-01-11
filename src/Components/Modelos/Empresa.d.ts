@@ -4,6 +4,8 @@ export type Empresa = {
     tipo: string;
     contrasenia: string;
     nombreEmpresa: string;
+    nombre: string;
+    apellido: string;
     edad: number;
     telefono: string;
     estadoCivil: string;
@@ -12,5 +14,6 @@ export type Empresa = {
     colonia: string;
     estado: string;
     codigoPostal: string;
-    giro:string;
+    giro: string;
+    RFC: string;
 }

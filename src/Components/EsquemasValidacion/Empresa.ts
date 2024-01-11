@@ -3,7 +3,7 @@ import { object, string, number, ref } from "yup";
 export let empresaSchema = object({
     nombreEmpresa: string().required("Nombre requerido"),
     giro: string().required('Giro requerido'),
-    edad: number().positive().required('Edad requerida'),
+    RFC: string().required('RFC requerido'),
     telefono: number().positive().required('teléfono requerido'),
 });
 
@@ -15,6 +15,19 @@ export let empresaDosSchema = object({
 })
 
 export let empresaTresSchema = object({
+    nombre: string()
+        .required("Nombre requerido"),
+    apellido: string()
+        .required("Apellido requerido"),
+    edad: number()
+        .positive()
+        .required('Edad requerida'),
+    fecha: string()
+        .required("Fecha requerida"),
+    estadoCivil: string()
+        .required("Estado cívil requerido")
+});
+export let empresaCuatroSchema = object({
     correo: string()
         .email("Correo electrónico inválido")
         .required("El correo electrónico es requerido"),

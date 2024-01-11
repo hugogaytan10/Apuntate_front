@@ -5,7 +5,7 @@ import { usuarioCompletoSchema, usuarioSchema } from '../EsquemasValidacion/Usua
 export const Perfil = () => {
     return (
         <div className='block min-h-screen w-full bg-fondo'>
-            <h3 className='text-center text-lg font-bold '>Hola Rogelio! esta es tu información</h3>
+            <h3 className='text-center text-lg font-bold text-gray-600'>Hola Rogelio! esta es tu información</h3>
 
             <Formik
                 initialValues={{
@@ -36,13 +36,14 @@ export const Perfil = () => {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <div id='divPasoUno' className='w-11/12 m-auto mb-20 bg-white mt-10 transition-all md:w-2/4'>
-                        <h3 className='font-bold text-xl ml-4'>Datos Personales</h3>
+                    <div id='divPasoUno' className='w-11/12 m-auto mb-20 text-gray-600 bg-white mt-10 transition-all md:w-2/4'>
+                        <h3 className='font-bold text-xl ml-4 text-gray-600'>Datos Personales</h3>
                         <form className='w-10/12 m-auto mt-10' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
                             <div className="form-group">
                                 <input
                                     type="text"
                                     placeholder=" "
+                                    className='bg-white'
                                     name="nombreCompleto"
                                     onChange={handleChange('nombreCompleto')}
                                     onBlur={handleBlur('nombreCompleto')}
@@ -54,6 +55,7 @@ export const Perfil = () => {
                             <div className="form-group">
                                 <input
                                     type="number"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="edad"
                                     name='edad'
@@ -67,6 +69,7 @@ export const Perfil = () => {
                             <div className="form-group">
                                 <input
                                     type="date"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="fecha"
                                     name='fecha'
@@ -79,6 +82,7 @@ export const Perfil = () => {
                             <div className="form-group">
                                 <input
                                     type="number"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="telefono"
                                     name='telefono'
@@ -89,7 +93,7 @@ export const Perfil = () => {
                             </div>
                             {errors.telefono && touched.telefono && <ErrorMessage name='telefono' component="div" className='error' />}
                             <div className="form-group">
-                                <select className="select select-bordered w-full max-w-xs"
+                                <select className="bg-white select select-bordered w-full w-full"
                                     onChange={handleChange('estadoCivil')}
                                     onBlur={handleBlur('estadoCivil')}
                                     name='estadoCivil'
@@ -104,6 +108,7 @@ export const Perfil = () => {
                                 <input
                                     type="text"
                                     placeholder=" "
+                                    className='bg-white'
                                     id="estado"
                                     name='estado'
                                     onChange={handleChange('estado')}
@@ -120,6 +125,7 @@ export const Perfil = () => {
                                     placeholder=" "
                                     id="calle"
                                     name='calle'
+                                    className='bg-white'
                                     onChange={handleChange('calle')}
                                     onBlur={handleBlur('calle')}
                                     value={values.calle}
@@ -134,6 +140,7 @@ export const Perfil = () => {
                                     placeholder=" "
                                     id="colonia"
                                     name='colonia'
+                                    className='bg-white'
                                     onChange={handleChange('colonia')}
                                     onBlur={handleBlur('colonia')}
                                     value={values.colonia}
@@ -148,6 +155,7 @@ export const Perfil = () => {
                                     placeholder=" "
                                     id="codigoPostal"
                                     name='codigoPostal'
+                                    className='bg-white'
                                     onChange={handleChange('codigoPostal')}
                                     onBlur={handleBlur('codigoPostal')}
                                     value={values.codigoPostal}
@@ -158,6 +166,7 @@ export const Perfil = () => {
                             <div className="form-group">
                                 <input
                                     type="password"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="pass"
                                     onChange={handleChange('contrasenia')}
@@ -171,6 +180,7 @@ export const Perfil = () => {
                             <div className="form-group">
                                 <input
                                     type="password"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="Confirmpass"
                                     onChange={handleChange('confirmarContrasenia')}

@@ -1,12 +1,13 @@
 import { ErrorMessage, Formik } from 'formik';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { usuarioDosSchema, usuarioSchema, usuarioTresSchema } from '../EsquemasValidacion/Usuario';
 import { Usuario } from '../Modelos/Usuario';
 import { clickBtn } from './confetti';
-
+import { AppContext } from '../Contexto/AppContext';
 export const RegistroUsuario = () => {
     const [paso, setPaso] = useState(0);
     const [registro, setRegistro] = useState<Partial<Usuario>>();
+    const contexto = useContext(AppContext);
     const CambioColor = () => {
 
         if (paso == 0) {
@@ -73,7 +74,36 @@ export const RegistroUsuario = () => {
         }
         setPaso(paso - 1);
     }
-
+    const insertarUsuario = async (usuario: Usuario) => {
+        const direccion = usuario.calle + ' ' + usuario.colonia + ' ' + usuario.estado + ' ' + usuario.codigoPostal;
+        const usuarioNuevo = {
+            Nombre: usuario.nombre,
+            Apellido: usuario.apellido,
+            Telefono: usuario.telefono,
+            EstadoCivil: usuario.estadoCivil,
+            FechaNac: usuario.fecha,
+            Direccion: direccion,
+            Email: usuario.correo,
+            Contrasenia: usuario.contrasenia,
+        }
+        console.log(usuarioNuevo)
+        fetch('http://localhost:8090/api/usuario/agregar', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuarioNuevo),
+        }).then(res => {
+            return res.json();
+        }).then(data => {
+            contexto.setToken(data.token);
+            contexto.setUsuario(data.usuario);
+            localStorage.setItem('usuario', data.usuario);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
     return (
         <div className='bg-fondo min-h-screen'>
             <div className='flex flex-wrap w-full justify-around'>
@@ -84,7 +114,8 @@ export const RegistroUsuario = () => {
 
             <Formik
                 initialValues={{
-                    nombreCompleto: '',
+                    nombre: '',
+                    apellido: '',
                     edad: '',
                     telefono: '',
                     estadoCivil: '',
@@ -95,7 +126,8 @@ export const RegistroUsuario = () => {
                     clickBtn();
                     setRegistro({
                         ...registro,
-                        nombre: values.nombreCompleto,
+                        nombre: values.nombre,
+                        apellido: values.apellido,
                         edad: parseInt(values.edad),
                         telefono: values.telefono,
                         estadoCivil: values.estadoCivil,
@@ -115,27 +147,42 @@ export const RegistroUsuario = () => {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <div id='divPasoUno' className='w-11/12 m-auto bg-white mt-10 transition-all md:w-2/4'>
-                        <h3 className='font-bold text-xl ml-4'>Datos Personales</h3>
+                    <div id='divPasoUno' className='w-11/12 m-auto bg-white mt-10 transition-all md:w-2/4 text-gray-600'>
+                        <h3 className='font-bold text-xl ml-4 text-gray-600'>Datos Personales</h3>
                         <form className='w-10/12 m-auto mt-10' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
                             <div className="form-group">
                                 <input
                                     type="text"
                                     placeholder=" "
-                                    name="nombreCompleto"
-                                    onChange={handleChange('nombreCompleto')}
-                                    onBlur={handleBlur('nombreCompleto')}
-                                    value={values.nombreCompleto}
+                                    name="nombre"
+                                    className='bg-white'
+                                    onChange={handleChange('nombre')}
+                                    onBlur={handleBlur('nombre')}
+                                    value={values.nombre}
                                 />
-                                <label>Nombre Completo</label>
+                                <label>Nombre</label>
                             </div>
-                            {errors.nombreCompleto && touched.nombreCompleto && <ErrorMessage name='nombreCompleto' component="div" className='error' />}
+                            {errors.nombre && touched.nombre && <ErrorMessage name='nombre' component="div" className='error' />}
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    placeholder=" "
+                                    name="apellido"
+                                    className='bg-white'
+                                    onChange={handleChange('apellido')}
+                                    onBlur={handleBlur('apellido')}
+                                    value={values.apellido}
+                                />
+                                <label>Apellido</label>
+                            </div>
+                            {errors.apellido && touched.apellido && <ErrorMessage name='apellido' component="div" className='error' />}
                             <div className="form-group">
                                 <input
                                     type="number"
                                     placeholder=" "
                                     id="edad"
                                     name='edad'
+                                    className='bg-white'
                                     onChange={handleChange('edad')}
                                     onBlur={handleBlur('edad')}
                                     value={values.edad}
@@ -149,18 +196,21 @@ export const RegistroUsuario = () => {
                                     placeholder=" "
                                     id="fecha"
                                     name='fecha'
+                                    className='calendario'
                                     onChange={handleChange('fecha')}
                                     onBlur={handleBlur('fecha')}
                                     value={values.fecha}
                                 />
                                 <label>Fecha de nacimiento</label>
                             </div>
+                            {errors.fecha && touched.fecha && <ErrorMessage name='fecha' component="div" className='error' />}
                             <div className="form-group">
                                 <input
                                     type="number"
                                     placeholder=" "
                                     id="telefono"
                                     name='telefono'
+                                    className='bg-white'
                                     onChange={handleChange('telefono')}
                                     onBlur={handleBlur('telefono')}
                                     value={values.telefono} />
@@ -168,15 +218,16 @@ export const RegistroUsuario = () => {
                             </div>
                             {errors.telefono && touched.telefono && <ErrorMessage name='telefono' component="div" className='error' />}
                             <div className="form-group">
-                                <select className="select select-bordered w-full max-w-xs"
+                                <select className="bg-white select select-bordered w-full"
                                     onChange={handleChange('estadoCivil')}
                                     onBlur={handleBlur('estadoCivil')}
                                     name='estadoCivil'
                                 >
                                     <option defaultValue='Soltero'>Estado cívil</option>
-                                    <option>Solter@</option>
-                                    <option>Casad@</option>
-                                    <option>Viud@</option>
+                                    <option>soltero/a</option>
+                                    <option>casado/a</option>
+                                    <option>viudo/a</option>
+                                    <option>divorciado/a</option>
                                 </select>
                             </div>
 
@@ -224,8 +275,8 @@ export const RegistroUsuario = () => {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <div id='divPasoDos' className='w-11/12 m-auto bg-white mt-10 transition-all opacity-0 md:w-2/4'>
-                        <h3 className='font-bold text-xl ml-4'>Lugar de Residencia</h3>
+                    <div id='divPasoDos' className='w-11/12 m-auto bg-white mt-10 transition-all opacity-0 md:w-2/4 text-gray-600'>
+                        <h3 className='font-bold text-xl ml-4 text-gray-600'>Lugar de Residencia</h3>
                         <form className='w-10/12 m-auto mt-10'
                             onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}
                         >
@@ -236,6 +287,7 @@ export const RegistroUsuario = () => {
                                     placeholder=" "
                                     id="estado"
                                     name='estado'
+                                    className='bg-white'
                                     onChange={handleChange('estado')}
                                     onBlur={handleBlur('estado')}
                                     value={values.estado}
@@ -250,6 +302,7 @@ export const RegistroUsuario = () => {
                                     placeholder=" "
                                     id="calle"
                                     name='calle'
+                                    className='bg-white'
                                     onChange={handleChange('calle')}
                                     onBlur={handleBlur('calle')}
                                     value={values.calle}
@@ -264,6 +317,7 @@ export const RegistroUsuario = () => {
                                     placeholder=" "
                                     id="colonia"
                                     name='colonia'
+                                    className='bg-white'
                                     onChange={handleChange('colonia')}
                                     onBlur={handleBlur('colonia')}
                                     value={values.colonia}
@@ -278,6 +332,7 @@ export const RegistroUsuario = () => {
                                     placeholder=" "
                                     id="codigoPostal"
                                     name='codigoPostal'
+                                    className='bg-white'
                                     onChange={handleChange('codigoPostal')}
                                     onBlur={handleBlur('codigoPostal')}
                                     value={values.codigoPostal}
@@ -320,11 +375,12 @@ export const RegistroUsuario = () => {
                         correo: values.correo
                     })
                     clickBtn();
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         CambioColor();
-                    },1000)
+                    }, 1000)
                     //envio a la base de datos 
                     //guardar en local storage las credenciales
+                    insertarUsuario(registro as Usuario);
 
                 }}
             >
@@ -337,8 +393,8 @@ export const RegistroUsuario = () => {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <div id='divPasoTres' className='w-11/12 m-auto bg-white mt-10 transition-all opacity-0 md:w-2/4'>
-                        <h3 className='font-bold text-xl ml-4'>Credenciales</h3>
+                    <div id='divPasoTres' className='w-11/12 m-auto bg-white mt-10 transition-all opacity-0 md:w-2/4 text-gray-600'>
+                        <h3 className='font-bold text-xl ml-4 text-gray-600'>Credenciales</h3>
                         <form
                             onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}
                             className='w-10/12 m-auto mt-10'>
@@ -346,6 +402,7 @@ export const RegistroUsuario = () => {
                                 <input
                                     type="text"
                                     placeholder=" "
+                                    className='bg-white'
                                     id="correo"
                                     onChange={handleChange('correo')}
                                     onBlur={handleBlur('correo')}
@@ -358,6 +415,7 @@ export const RegistroUsuario = () => {
                             <div className="form-group">
                                 <input
                                     type="password"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="pass"
                                     onChange={handleChange('contrasenia')}
@@ -371,6 +429,7 @@ export const RegistroUsuario = () => {
                             <div className="form-group">
                                 <input
                                     type="password"
+                                    className='bg-white'
                                     placeholder=" "
                                     id="Confirmpass"
                                     onChange={handleChange('confirmarContrasenia')}
