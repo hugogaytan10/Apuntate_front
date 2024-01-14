@@ -1,5 +1,6 @@
 import { ErrorMessage, Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
   usuarioDosSchema,
   usuarioSchema,
@@ -12,6 +13,7 @@ export const RegistroUsuario = () => {
   const [paso, setPaso] = useState(0);
   const [registro, setRegistro] = useState<Partial<Usuario>>();
   const contexto = useContext(AppContext);
+  const navigate = useNavigate();
   const CambioColor = () => {
     if (paso == 0) {
       const divUno = document.getElementById("pasoUno");
@@ -106,9 +108,12 @@ export const RegistroUsuario = () => {
         return res.json();
       })
       .then((data) => {
-        contexto.setToken(data.token);
-        contexto.setUsuario(data.usuario);
-        localStorage.setItem("usuario", data.usuario);
+        if(data.token){
+          contexto.setToken(data.token);
+          contexto.setUsuario(data.usuario);
+          localStorage.setItem('usuario', data.usuario);
+          navigate('/incio');
+         }
       })
       .catch((err) => {
         console.log(err);
