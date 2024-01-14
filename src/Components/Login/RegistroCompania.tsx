@@ -122,7 +122,6 @@ export const RegistroCompania = () => {
             NombreEmpresa: usuario.nombreEmpresa,
             RFC: usuario.RFC
         }
-        console.log(usuarioNuevo)
         //fetch('http://localhost:8090/api/empresa/agregar', {
         fetch('https://apuntateback-production.up.railway.app/api/empresa/agregar', {
             method: 'POST',

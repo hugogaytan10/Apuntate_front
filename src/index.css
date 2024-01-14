@@ -9,7 +9,7 @@
     margin: 0;
 }
 
-@media (prefers-color-schema: light) {
+@media (prefers-color-scheme: light) {
     :root {
         --gris-oscuro: #2C3A3A;
         --fondo: #EFFAFA;

@@ -36,7 +36,7 @@ export const InicioAdmin = () => {
     )
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        document.getElementById("my_modal_1").close();
       })
       .catch((err) => console.log(err));
   };
