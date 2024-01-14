@@ -10,6 +10,7 @@ export let usuarioSchema = object({
 
 export let usuarioDosSchema = object({
     estado: string().required("Estado requerido"),
+    ciudad: string().required("Ciudad requerida"),
     calle: string().required("Calle y numero requerido"),
     colonia: string().required("Colonia requerida"),
     codigoPostal: string().required("Código postal requerido")

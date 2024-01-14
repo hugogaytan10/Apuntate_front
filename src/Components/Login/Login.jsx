@@ -1,19 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import user from "../../assets/user.svg";
 import "./Login.css";
 import { AppContext } from "../Contexto/AppContext";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../Loader/Loader";
 
 export const Login = () => {
   const contexto = useContext(AppContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const ManejoLogin = () => {
     const usuario = {
       Email: document.getElementById("correo").value,
       Contrasenia: document.getElementById("pass").value,
     };
-
+    setLoading(true);
     //fetch("http://localhost:8090/api/login", {
     fetch("https://apuntateback-production.up.railway.app/api/login", {
       method: "POST",
@@ -26,6 +28,7 @@ export const Login = () => {
       .then((response) => {
         if (response.status === 400) {
             document.getElementById("my_modal_1").showModal();
+            setLoading(false);
         }
         return response.json();
       })
@@ -34,9 +37,10 @@ export const Login = () => {
           contexto.setUsuario(data.usuario);
           contexto.setToken(data.Token);
           navigate("/inicio");
+          setLoading(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {setLoading(false); });
   };
   const Registro = () => {
     navigate("/TipoRegistro");
@@ -86,13 +90,13 @@ export const Login = () => {
           </div>
 
           <button
-            className="block m-auto w-full md:w-1/2 bg-primario relative top-10 p-2 rounded-md text-gray-50 font-semibold"
+            className="block m-auto h-10 w-full md:w-1/2 bg-primario relative top-10 p-2 rounded-md text-gray-50 font-semibold"
             onClick={ManejoLogin}
           >
-            ENTRAR
+            {loading ? <Loader/> :  'ENTRAR'}
           </button>
           <button
-            className="block m-auto w-full md:w-1/2 bg-white border-primario border-2 relative top-14 p-2 rounded-md font-semibold text-primario"
+            className="block m-auto h-10 w-full md:w-1/2 bg-white border-primario border-2 relative top-14 p-2 rounded-md font-semibold text-primario"
             onClick={Registro}
           >
             REGISTRARSE

@@ -6,6 +6,7 @@ export type Trabajo = {
     Tiempo: string;
     Estatus?: number;
     Contrato: string;
+    Ciudad: string;
     Modalidad: string;
     EmpresaId?: number;
 }

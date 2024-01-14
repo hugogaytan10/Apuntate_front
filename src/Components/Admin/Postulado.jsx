@@ -48,6 +48,15 @@ export const Postulado = () => {
         </div>
       </div>
 
+      <div className="flex w-full md:w-1/2 mt-10 m-auto rounded-md h-10 ">
+        <div className="w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center">
+          Ciudad
+        </div>
+        <div className="w-3/4 bg-primario text-gray-50 rounded-r-md pl-2">
+          {postulado.Ciudad}
+        </div>
+      </div>
+
       <div className="flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 ">
         <div className="w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center">
           Teléfono

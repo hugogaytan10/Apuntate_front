@@ -20,6 +20,9 @@
         background-color: #5BA4A4;
         color: #212121;
     }
+    .calendario::placeholder{
+        color: #212121;
+    }
     
 }
 @media (prefers-color-scheme: dark) {
@@ -33,5 +36,7 @@
         background-color: #2C3A3A;
         color: #fff;
     }
-    
+    .calendario::placeholder{
+        color: #fff;
+    }
 }

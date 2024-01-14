@@ -76,7 +76,7 @@ export const RegistroUsuario = () => {
     }
     setPaso(paso - 1);
   };
-  const insertarUsuario = async (usuario: Usuario) => {
+  const insertarUsuario = async (usuario: Usuario, email: string, contrasenia: string) => {
     const direccion =
       usuario.Calle +
       " " +
@@ -92,10 +92,11 @@ export const RegistroUsuario = () => {
       EstadoCivil: usuario.EstadoCivil,
       FechaNac: usuario.FechaNac,
       Direccion: direccion,
-      Email: usuario.Email,
-      Contrasenia: usuario.Contrasenia,
+      Ciudad: usuario.Ciudad,
+      Email: email,
+      Contrasenia: contrasenia,
     };
-//    fetch("http://localhost:8090/api/usuario/agregar", {
+    //fetch("http://localhost:8090/api/usuario/agregar", {
     fetch("https://apuntateback-production.up.railway.app/api/usuario/agregar", {
       method: "POST",
       mode: "cors",
@@ -108,11 +109,11 @@ export const RegistroUsuario = () => {
         return res.json();
       })
       .then((data) => {
-        if(data.token){
-          contexto.setToken(data.token);
+        if(data.Token){
+          contexto.setToken(data.Token);
           contexto.setUsuario(data.usuario);
           localStorage.setItem('usuario', data.usuario);
-          navigate('/incio');
+          navigate('/inicio');
          }
       })
       .catch((err) => {
@@ -309,6 +310,7 @@ export const RegistroUsuario = () => {
           codigoPostal: "",
           colonia: "",
           estado: "",
+          ciudad: "",
         }}
         validationSchema={usuarioDosSchema}
         onSubmit={(values) => {
@@ -319,6 +321,7 @@ export const RegistroUsuario = () => {
             CodigoPostal: values.codigoPostal,
             colonia: values.colonia,
             estado: values.estado,
+            Ciudad: values.ciudad,
           });
           setTimeout(() => {
             CambioColor();
@@ -363,6 +366,22 @@ export const RegistroUsuario = () => {
               </div>
               {errors.estado && touched.estado && (
                 <ErrorMessage name="estado" component="div" className="error" />
+              )}
+               <div className="form-group">
+                <input
+                  type="text"
+                  placeholder=" "
+                  id="ciudad"
+                  name="ciudad"
+                  className="bg-white"
+                  onChange={handleChange("ciudad")}
+                  onBlur={handleBlur("ciudad")}
+                  value={values.ciudad}
+                />
+                <label>Ciudad</label>
+              </div>
+              {errors.ciudad && touched.ciudad && (
+                <ErrorMessage name="ciudad" component="div" className="error" />
               )}
 
               <div className="form-group">
@@ -458,12 +477,9 @@ export const RegistroUsuario = () => {
             Email: values.correo,
           });
           clickBtn();
-          setTimeout(() => {
-            CambioColor();
-          }, 1000);
           //envio a la base de datos
           //guardar en local storage las credenciales
-          insertarUsuario(registro as Usuario);
+          insertarUsuario(registro as Usuario, values.correo, values.contrasenia);
         }}
       >
         {({

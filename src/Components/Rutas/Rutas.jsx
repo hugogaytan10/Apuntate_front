@@ -120,7 +120,7 @@ export const Rutas = () => {
                 Iniciar sesión
               </NavLink>
             </li>
-            {contexto.usuario.Empresa_Id != "" && (
+            {contexto.usuario.Empresa_Id != "" && contexto.usuario.Empresa_Id != undefined && (
               <li>
                 <NavLink className="text-white text-lg" to="/inicioAdmin">
                   Administrador

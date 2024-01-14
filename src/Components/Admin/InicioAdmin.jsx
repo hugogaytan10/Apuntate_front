@@ -18,18 +18,22 @@ export const InicioAdmin = () => {
     Contrato: "",
     Modalidad: "",
     EmpresaId: "",
+    Ciudad: "",
   });
   const [trabajos, setTrabajos] = useState([]);
   const agregarTrabajo = (nuevoTrabajo) => {
     //fetch("http://localhost:8090/api/trabajo/agregar", {
-    fetch("https://apuntateback-production.up.railway.app/api/trabajo/agregar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'token': contexto.token,
-      },
-      body: JSON.stringify(nuevoTrabajo),
-    })
+    fetch(
+      "https://apuntateback-production.up.railway.app/api/trabajo/agregar",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: contexto.token,
+        },
+        body: JSON.stringify(nuevoTrabajo),
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
@@ -38,14 +42,17 @@ export const InicioAdmin = () => {
   };
   const actualizarTrabajo = (actualizarTrabajo) => {
     //fetch("http://localhost:8090/api/trabajo/actualizar", {
-    fetch("https://apuntateback-production.up.railway.app/api/trabajo/actualizar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'token': contexto.token,
-      },
-      body: JSON.stringify(actualizarTrabajo),
-    })
+    fetch(
+      "https://apuntateback-production.up.railway.app/api/trabajo/actualizar",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: contexto.token,
+        },
+        body: JSON.stringify(actualizarTrabajo),
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         if (data) {
@@ -74,14 +81,17 @@ export const InicioAdmin = () => {
   };
   const eliminarTrabajo = () => {
     //fetch("http://localhost:8090/api/trabajo/eliminar", {
-    fetch("https://apuntateback-production.up.railway.app/api/trabajo/eliminar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'token': contexto.token,
-      },
-      body: JSON.stringify({ Id: trabajo.Id }),
-    })
+    fetch(
+      "https://apuntateback-production.up.railway.app/api/trabajo/eliminar",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: contexto.token,
+        },
+        body: JSON.stringify({ Id: trabajo.Id }),
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         if (data) {
@@ -130,7 +140,9 @@ export const InicioAdmin = () => {
               </div>
               <div className="flex justify-around w-full">
                 <NavLink
-                  onClick={() => {contexto.setTrabajo(trabajo)}}
+                  onClick={() => {
+                    contexto.setTrabajo(trabajo);
+                  }}
                   className="bg-gris-oscuro text-gray-50 m-auto w-1/3 p-1 rounded-sm text-base text-center"
                   to={`/postuladosAdmin/${trabajo.Id}`}
                 >
@@ -182,6 +194,7 @@ export const InicioAdmin = () => {
                 tiempo: "",
                 contrato: "",
                 modalidad: "",
+                ciudad: "",
               }}
               validationSchema={empleoSchema}
               onSubmit={(values) => {
@@ -193,6 +206,7 @@ export const InicioAdmin = () => {
                   Tiempo: values.tiempo,
                   Contrato: values.contrato,
                   Modalidad: values.modalidad,
+                  Ciudad: values.ciudad,
                   EmpresaId: contexto.usuario.Empresa_Id,
                 };
                 agregarTrabajo(nuevoTrabajo);
@@ -254,7 +268,25 @@ export const InicioAdmin = () => {
                       className="error"
                     />
                   )}
-
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="ciudad"
+                      className="bg-white"
+                      onChange={handleChange("ciudad")}
+                      onBlur={handleBlur("ciudad")}
+                      value={values.ciudad}
+                    />
+                    <label>Ciudad</label>
+                  </div>
+                  {errors.ciudad && touched.ciudad && (
+                    <ErrorMessage
+                      name="ciudad"
+                      component="div"
+                      className="error"
+                    />
+                  )}
                   <div className="form-group">
                     <input
                       type="text"
@@ -398,6 +430,7 @@ export const InicioAdmin = () => {
                 tiempo: trabajo.Tiempo,
                 contrato: trabajo.Contrato,
                 modalidad: trabajo.Modalidad,
+                ciudad: trabajo.Ciudad,
               }}
               validationSchema={empleoSchema}
               onSubmit={(values) => {
@@ -407,6 +440,7 @@ export const InicioAdmin = () => {
                   Descripcion: values.descripcion,
                   Salario: values.salario,
                   Direccion: values.ubicacion,
+                  Ciudad: values.ciudad,
                   Tiempo: values.tiempo,
                   Contrato: values.contrato,
                   Modalidad: values.modalidad,
@@ -471,7 +505,25 @@ export const InicioAdmin = () => {
                       className="error"
                     />
                   )}
-
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="ciudad"
+                      className="bg-white"
+                      onChange={handleChange("ciudad")}
+                      onBlur={handleBlur("ciudad")}
+                      value={values.ciudad}
+                    />
+                    <label>Ciudad</label>
+                  </div>
+                  {errors.ciudad && touched.ciudad && (
+                    <ErrorMessage
+                      name="ciudad"
+                      component="div"
+                      className="error"
+                    />
+                  )}
                   <div className="form-group">
                     <input
                       type="text"

@@ -116,7 +116,10 @@ export const Inicio = () => {
         EMPLEOS
       </h3>
       <div className="flex flex-wrap w-full justify-center mt-4 gap-4">
-        {trabajos.map((trabajo, index) => {
+
+        {
+        trabajos.length > 0 &&
+        trabajos.map((trabajo, index) => {
           return (
             <div
               key={`trabajo-${index}`}

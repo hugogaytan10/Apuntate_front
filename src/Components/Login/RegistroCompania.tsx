@@ -105,7 +105,7 @@ export const RegistroCompania = () => {
         }
         setPaso(paso - 1);
     }
-    const insertarUsuario = async (usuario: Empresa) => {
+    const insertarUsuario = async (usuario: Empresa, email: string, contrasenia: string) => {
        
         const direccion = usuario.calle + ' ' + usuario.colonia + ' ' + usuario.estado + ' ' + usuario.codigoPostal;
         const usuarioNuevo = {
@@ -115,12 +115,14 @@ export const RegistroCompania = () => {
             EstadoCivil: usuario.estadoCivil,
             FechaNac: usuario.fecha,
             Direccion: direccion,
-            Email: usuario.correo,
-            Contrasenia: usuario.contrasenia,
+            Ciudad: usuario.ciudad,
+            Email: email,
+            Contrasenia: contrasenia,
             Giro: usuario.giro,
             NombreEmpresa: usuario.nombreEmpresa,
             RFC: usuario.RFC
         }
+        console.log(usuarioNuevo)
         //fetch('http://localhost:8090/api/empresa/agregar', {
         fetch('https://apuntateback-production.up.railway.app/api/empresa/agregar', {
             method: 'POST',
@@ -132,8 +134,8 @@ export const RegistroCompania = () => {
         }).then(res => {
             return res.json();
         }).then(data => {
-           if(data.token){
-            contexto.setToken(data.token);
+           if(data.Token){
+            contexto.setToken(data.Token);
             contexto.setUsuario(data.usuario);
             localStorage.setItem('usuario', data.usuario);
             navigate('/inicioAdmin');
@@ -258,6 +260,7 @@ export const RegistroCompania = () => {
                     codigoPostal: "",
                     colonia: "",
                     estado: "",
+                    ciudad: "",
                 }}
                 validationSchema={empresaDosSchema}
                 onSubmit={(values) => {
@@ -267,7 +270,8 @@ export const RegistroCompania = () => {
                         calle: values.calle,
                         codigoPostal: values.codigoPostal,
                         colonia: values.colonia,
-                        estado: values.estado
+                        estado: values.estado,
+                        ciudad: values.ciudad
                     })
                     setTimeout(() => {
                         CambioColor();
@@ -303,7 +307,20 @@ export const RegistroCompania = () => {
                                 <label>Estado</label>
                             </div>
                             {errors.estado && touched.estado && <ErrorMessage name='estado' component="div" className='error' />}
-
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    placeholder=" "
+                                    id="ciudad"
+                                    className='bg-white'
+                                    name='ciudad'
+                                    onChange={handleChange('ciudad')}
+                                    onBlur={handleBlur('ciudad')}
+                                    value={values.ciudad}
+                                />
+                                <label>Ciudad</label>
+                            </div>
+                            {errors.ciudad && touched.ciudad && <ErrorMessage name='ciudad' component="div" className='error' />}
                             <div className="form-group">
                                 <input
                                     type="text"
@@ -515,7 +532,7 @@ export const RegistroCompania = () => {
                     }, 2000);
                     //envio a la base de datos 
                     //guardar en local storage las credenciales
-                    insertarUsuario(registro as Empresa);
+                    insertarUsuario(registro as Empresa, values.correo, values.contrasenia);
                 }}
             >
                 {({

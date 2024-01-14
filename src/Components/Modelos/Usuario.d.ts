@@ -12,6 +12,7 @@ export type Usuario = {
     Calle: string;
     colonia: string;
     estado: string;
+    Ciudad: string;
     CodigoPostal: string;
     Direccion: string;  
     Empresa_Id?: string;

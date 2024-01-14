@@ -4,6 +4,7 @@ export let empleoSchema = object({
     descripcion: string().required('Campo requerido'),
     salario: number().required('Salario requerido'),
     ubicacion: string().required('Ubicación requerida'),
+    ciudad: string().required('Ciudad requerida'),
     tiempo: string().required('Tipo de horario'),
     contrato: string().required('Tipo de contrato requerido'),
     modalidad: string().required('Modalidad requerida'),

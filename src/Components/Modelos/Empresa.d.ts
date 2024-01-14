@@ -13,6 +13,7 @@ export type Empresa = {
     calle: string;
     colonia: string;
     estado: string;
+    ciudad: string;
     codigoPostal: string;
     giro: string;
     RFC: string;
