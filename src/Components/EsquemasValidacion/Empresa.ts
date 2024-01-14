@@ -3,7 +3,7 @@ import { object, string, number, ref } from "yup";
 export let empresaSchema = object({
     nombreEmpresa: string().required("Nombre requerido"),
     giro: string().required('Giro requerido'),
-    RFC: string().required('RFC requerido'),
+    RFC: string().required('RFC requerido').length(13, 'RFC debe tener 13 caracteres'),
     telefono: number().positive().required('teléfono requerido'),
 });
 

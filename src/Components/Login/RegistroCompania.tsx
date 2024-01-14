@@ -5,10 +5,12 @@ import { empresaCuatroSchema, empresaDosSchema, empresaSchema, empresaTresSchema
 import { clickBtn } from './confetti';
 import { AppContext } from '../Contexto/AppContext';
 import { Usuario } from '../Modelos/Usuario';
+import { useNavigate } from 'react-router-dom';
 export const RegistroCompania = () => {
     const [paso, setPaso] = useState(0);
     const [registro, setRegistro] = useState<Partial<Empresa>>();
     const contexto = useContext(AppContext);
+    const navigate = useNavigate();
     const CambioColor = () => {
         if (paso == 0) {
             const divUno = document.getElementById('pasoUno');
@@ -119,7 +121,8 @@ export const RegistroCompania = () => {
             NombreEmpresa: usuario.nombreEmpresa,
             RFC: usuario.RFC
         }
-        fetch('http://localhost:8090/api/empresa/agregar', {
+        //fetch('http://localhost:8090/api/empresa/agregar', {
+        fetch('https://apuntateback-production.up.railway.app/api/empresa/agregar', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -129,9 +132,12 @@ export const RegistroCompania = () => {
         }).then(res => {
             return res.json();
         }).then(data => {
+           if(data.token){
             contexto.setToken(data.token);
             contexto.setUsuario(data.usuario);
             localStorage.setItem('usuario', data.usuario);
+            navigate('/inicioAdmin');
+           }
         }).catch(err => {
             console.log(err);
         });

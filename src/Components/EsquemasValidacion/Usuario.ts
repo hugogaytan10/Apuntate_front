@@ -27,4 +27,16 @@ export let usuarioTresSchema = object({
         .oneOf([ref('contrasenia')], "Las contraseñas deben coincidir")
 });
 
-export let usuarioCompletoSchema = object({ ...usuarioSchema.fields, ...usuarioDosSchema.fields, ...usuarioTresSchema.fields });
+export let usuarioCompletoSchema = object({
+    nombre: string().required("Nombre requerido"),
+    apellido: string().required("Apellido requerido"),
+    telefono: number().positive().required('teléfono requerido'),
+    fecha: string().required("Fecha de nacimiento requerida"),
+    direccion: string().required("Dirección requerida"),
+    contrasenia: string()
+    .required("La contraseña es requerida")
+    .min(8, "La contraseña debe tener al menos 8 caracteres"),
+    confirmarContrasenia: string()
+    .required("La confirmación de contraseña es requerida")
+    .oneOf([ref('contrasenia')], "Las contraseñas deben coincidir")
+ });

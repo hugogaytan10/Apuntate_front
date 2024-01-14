@@ -18,6 +18,7 @@
     }
     .calendario{
         background-color: #EFFAFA;
+        color: #212121;
     }
     
 }
@@ -30,6 +31,7 @@
     }
     .calendario{
         background-color: #2C3A3A;
+        color: #fff;
     }
     
 }

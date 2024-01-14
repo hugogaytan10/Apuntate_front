@@ -1,209 +1,251 @@
-import React from 'react'
-import { ErrorMessage, Formik } from 'formik';
-import { usuarioCompletoSchema, usuarioSchema } from '../EsquemasValidacion/Usuario';
-
+import React, { useContext } from "react";
+import { ErrorMessage, Formik } from "formik";
+import {
+  usuarioCompletoSchema,
+  usuarioSchema,
+} from "../EsquemasValidacion/Usuario";
+import { AppContext } from "../Contexto/AppContext";
+import { Usuario } from "../Modelos/Usuario";
+import { clickBtn } from "../Login/confetti";
 export const Perfil = () => {
-    return (
-        <div className='block min-h-screen w-full bg-fondo'>
-            <h3 className='text-center text-lg font-bold text-gray-600'>Hola Rogelio! esta es tu información</h3>
+  const contexto = useContext(AppContext);
+  const ActualizarInformacion = (usuario: Usuario) => {
+    //fetch("http://localhost:8090/api/usuario/actualizar", {
+    fetch("https://apuntateback-production.up.railway.app/api/usuario/actualizar", {
+      method: "POST",
+      body: JSON.stringify(usuario),
+      headers: {
+        "Content-Type": "application/json",
+        token: contexto.token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          clickBtn();
+          contexto.setUsuario(usuario);
+        } 
+      })
+      .catch((err) => {
+        alert("Ocurrió un error al actualizar los datos");
+      });
+  };
+  return (
+    <div className="block min-h-screen w-full bg-fondo">
+      <h3 className="text-center text-lg font-bold text-gray-600">
+        Hola {contexto.usuario.Nombre}! esta es tu información
+      </h3>
 
-            <Formik
-                initialValues={{
-                    nombreCompleto: '',
-                    edad: '',
-                    telefono: '',
-                    estadoCivil: '',
-                    fecha: '',
-                    calle: "",
-                    codigoPostal: "",
-                    colonia: "",
-                    estado: "",
-                    contrasenia: "",
-                    confirmarContrasenia: "",
-                }}
-                validationSchema={usuarioCompletoSchema}
-                onSubmit={(values) => {
-
-                }}
+      <Formik
+        initialValues={{
+          nombre: contexto.usuario.Nombre || "",
+          apellido: contexto.usuario.Apellido || "",
+          telefono: contexto.usuario.Telefono || "",
+          estadoCivil: contexto.usuario.EstadoCivil || "",
+          fecha: contexto.usuario.FechaNac || "",
+          direccion: contexto.usuario.Direccion || "",
+          contrasenia: "",
+          confirmarContrasenia: "",
+        }}
+        validationSchema={usuarioCompletoSchema}
+        onSubmit={(values) => {
+          let usuario: Usuario = {
+            Id: contexto.usuario.Id,
+            Contrasenia: values.contrasenia,
+            Email: contexto.usuario.Email,
+            tipo: contexto.usuario.tipo,
+            Nombre: values.nombre,
+            Calle: contexto.usuario.Calle,
+            CodigoPostal: contexto.usuario.CodigoPostal,
+            colonia: contexto.usuario.colonia,
+            Edad: contexto.usuario.Edad,
+            estado: contexto.usuario.estado,
+            EstadoCivil: values.estadoCivil,
+            FechaNac: values.fecha,
+            Telefono: values.telefono,
+            Apellido: values.apellido,
+            Direccion: values.direccion,
+            Empresa_Id: contexto.usuario.Empresa_Id,
+          };
+          ActualizarInformacion(usuario);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <div
+            id="divPasoUno"
+            className="w-11/12 m-auto mb-20 text-gray-600 bg-white mt-10 transition-all md:w-2/4"
+          >
+            <h3 className="font-bold text-xl ml-4 text-gray-600">
+              Datos Personales
+            </h3>
+            <form
+              className="w-10/12 m-auto mt-10"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(e);
+              }}
             >
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder=" "
+                  className="bg-white"
+                  name="nombre"
+                  onChange={handleChange("nombre")}
+                  onBlur={handleBlur("nombre")}
+                  value={values.nombre}
+                />
+                <label>Nombre</label>
+              </div>
+              {errors.nombre && touched.nombre && (
+                <ErrorMessage name="nombre" component="div" className="error" />
+              )}
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder=" "
+                  className="bg-white"
+                  name="apellido"
+                  onChange={handleChange("apellido")}
+                  onBlur={handleBlur("apellido")}
+                  value={values.apellido}
+                />
+                <label>Apellido</label>
+              </div>
+              {errors.apellido && touched.apellido && (
+                <ErrorMessage
+                  name="apellido"
+                  component="div"
+                  className="error"
+                />
+              )}
 
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                }) => (
-                    <div id='divPasoUno' className='w-11/12 m-auto mb-20 text-gray-600 bg-white mt-10 transition-all md:w-2/4'>
-                        <h3 className='font-bold text-xl ml-4 text-gray-600'>Datos Personales</h3>
-                        <form className='w-10/12 m-auto mt-10' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    placeholder=" "
-                                    className='bg-white'
-                                    name="nombreCompleto"
-                                    onChange={handleChange('nombreCompleto')}
-                                    onBlur={handleBlur('nombreCompleto')}
-                                    value={values.nombreCompleto}
-                                />
-                                <label>Nombre Completo</label>
-                            </div>
-                            {errors.nombreCompleto && touched.nombreCompleto && <ErrorMessage name='nombreCompleto' component="div" className='error' />}
-                            <div className="form-group">
-                                <input
-                                    type="number"
-                                    className='bg-white'
-                                    placeholder=" "
-                                    id="edad"
-                                    name='edad'
-                                    onChange={handleChange('edad')}
-                                    onBlur={handleBlur('edad')}
-                                    value={values.edad}
-                                />
-                                <label>Edad</label>
-                            </div>
-                            {errors.edad && touched.edad && <ErrorMessage name='edad' component="div" className='error' />}
-                            <div className="form-group">
-                                <input
-                                    type="date"
-                                    className='bg-white'
-                                    placeholder=" "
-                                    id="fecha"
-                                    name='fecha'
-                                    onChange={handleChange('fecha')}
-                                    onBlur={handleBlur('fecha')}
-                                    value={values.fecha}
-                                />
-                                <label>Fecha de nacimiento</label>
-                            </div>
-                            <div className="form-group">
-                                <input
-                                    type="number"
-                                    className='bg-white'
-                                    placeholder=" "
-                                    id="telefono"
-                                    name='telefono'
-                                    onChange={handleChange('telefono')}
-                                    onBlur={handleBlur('telefono')}
-                                    value={values.telefono} />
-                                <label>Teléfono</label>
-                            </div>
-                            {errors.telefono && touched.telefono && <ErrorMessage name='telefono' component="div" className='error' />}
-                            <div className="form-group">
-                                <select className="bg-white select select-bordered w-full w-full"
-                                    onChange={handleChange('estadoCivil')}
-                                    onBlur={handleBlur('estadoCivil')}
-                                    name='estadoCivil'
-                                >
-                                    <option defaultValue='Soltero'>Estado cívil</option>
-                                    <option>Solter@</option>
-                                    <option>Casad@</option>
-                                    <option>Viud@</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    placeholder=" "
-                                    className='bg-white'
-                                    id="estado"
-                                    name='estado'
-                                    onChange={handleChange('estado')}
-                                    onBlur={handleBlur('estado')}
-                                    value={values.estado}
-                                />
-                                <label>Estado</label>
-                            </div>
-                            {errors.estado && touched.estado && <ErrorMessage name='estado' component="div" className='error' />}
+              <div className="form-group">
+                <input
+                  type="date"
+                  className="calendario"
+                  placeholder=" "
+                  id="fecha"
+                  name="fecha"
+                  onChange={handleChange("fecha")}
+                  onBlur={handleBlur("fecha")}
+                  value={values.fecha}
+                />
+                <label>Fecha de nacimiento</label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
+                  className="bg-white"
+                  placeholder=" "
+                  id="telefono"
+                  name="telefono"
+                  onChange={handleChange("telefono")}
+                  onBlur={handleBlur("telefono")}
+                  value={values.telefono}
+                />
+                <label>Teléfono</label>
+              </div>
+              {errors.telefono && touched.telefono && (
+                <ErrorMessage
+                  name="telefono"
+                  component="div"
+                  className="error"
+                />
+              )}
+              <div className="form-group">
+                <select
+                  className="bg-white select select-bordered w-full w-full"
+                  onChange={handleChange("estadoCivil")}
+                  onBlur={handleBlur("estadoCivil")}
+                  name="estadoCivil"
+                >
+                  <option defaultValue="Soltero">Estado cívil</option>
+                  <option>soltero/a</option>
+                  <option>casado/a</option>
+                  <option>viudo/a</option>
+                  <option>divorciado/a</option>
+                </select>
+              </div>
 
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    placeholder=" "
-                                    id="calle"
-                                    name='calle'
-                                    className='bg-white'
-                                    onChange={handleChange('calle')}
-                                    onBlur={handleBlur('calle')}
-                                    value={values.calle}
-                                />
-                                <label>Calle y número</label>
-                            </div>
-                            {errors.calle && touched.calle && <ErrorMessage name='calle' component="div" className='error' />}
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder=" "
+                  id="direccion"
+                  name="direccion"
+                  className="bg-white"
+                  onChange={handleChange("direccion")}
+                  onBlur={handleBlur("direccion")}
+                  value={values.direccion}
+                />
+                <label>Dirección</label>
+              </div>
+              {errors.direccion && touched.direccion && (
+                <ErrorMessage
+                  name="direccion"
+                  component="div"
+                  className="error"
+                />
+              )}
+              <div className="form-group">
+                <input
+                  type="password"
+                  className="bg-white"
+                  placeholder=" "
+                  id="pass"
+                  onChange={handleChange("contrasenia")}
+                  onBlur={handleBlur("contrasenia")}
+                  value={values.contrasenia}
+                />
+                <label>Contraseña</label>
+              </div>
+              {errors.contrasenia && touched.contrasenia && (
+                <ErrorMessage
+                  name="contrasenia"
+                  component="div"
+                  className="error"
+                />
+              )}
 
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    placeholder=" "
-                                    id="colonia"
-                                    name='colonia'
-                                    className='bg-white'
-                                    onChange={handleChange('colonia')}
-                                    onBlur={handleBlur('colonia')}
-                                    value={values.colonia}
-                                />
-                                <label>Colonia</label>
-                            </div>
-                            {errors.colonia && touched.colonia && <ErrorMessage name='colonia' component="div" className='error' />}
+              <div className="form-group">
+                <input
+                  type="password"
+                  className="bg-white"
+                  placeholder=" "
+                  id="Confirmpass"
+                  onChange={handleChange("confirmarContrasenia")}
+                  onBlur={handleBlur("confirmarContrasenia")}
+                  value={values.confirmarContrasenia}
+                />
+                <label>Confirmar contraseña</label>
+              </div>
+              {errors.confirmarContrasenia && touched.confirmarContrasenia && (
+                <ErrorMessage
+                  name="confirmarContrasenia"
+                  component="div"
+                  className="error"
+                />
+              )}
 
-                            <div className="form-group">
-                                <input
-                                    type="number"
-                                    placeholder=" "
-                                    id="codigoPostal"
-                                    name='codigoPostal'
-                                    className='bg-white'
-                                    onChange={handleChange('codigoPostal')}
-                                    onBlur={handleBlur('codigoPostal')}
-                                    value={values.codigoPostal}
-                                />
-                                <label>Código postal</label>
-                            </div>
-                            {errors.codigoPostal && touched.codigoPostal && <ErrorMessage name='codigoPostal' component="div" className='error' />}
-                            <div className="form-group">
-                                <input
-                                    type="password"
-                                    className='bg-white'
-                                    placeholder=" "
-                                    id="pass"
-                                    onChange={handleChange('contrasenia')}
-                                    onBlur={handleBlur('contrasenia')}
-                                    value={values.contrasenia}
-                                />
-                                <label>Contraseña</label>
-                            </div>
-                            {errors.contrasenia && touched.contrasenia && <ErrorMessage name='contrasenia' component="div" className='error' />}
-
-                            <div className="form-group">
-                                <input
-                                    type="password"
-                                    className='bg-white'
-                                    placeholder=" "
-                                    id="Confirmpass"
-                                    onChange={handleChange('confirmarContrasenia')}
-                                    onBlur={handleBlur('confirmarContrasenia')}
-                                    value={values.confirmarContrasenia}
-                                />
-                                <label>Confirmar contraseña</label>
-                            </div>
-                            {errors.confirmarContrasenia && touched.confirmarContrasenia && <ErrorMessage name='confirmarContrasenia' component="div" className='error' />}
-
-                            <button className='bg-blue-700 p-2 rounded-sm text-gray-50   w-3/4 m-auto block '
-
-                                type='submit'
-                            >
-                                ACTUALIZAR
-                            </button>
-
-                        </form>
-                    </div>
-                )}
-            </Formik>
-
-
-        </div>
-    )
-}
+              <button
+                className="bg-blue-700 p-2 rounded-sm text-gray-50   w-3/4 m-auto block "
+                type="submit"
+              >
+                ACTUALIZAR
+              </button>
+            </form>
+          </div>
+        )}
+      </Formik>
+    </div>
+  );
+};

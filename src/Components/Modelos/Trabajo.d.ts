@@ -1,6 +1,6 @@
 export type Trabajo = {
     Id?: number;
-    Tiulo: string;
+    Titulo: string;
     Descripcion: string;
     Salario: number;
     Tiempo: string;
