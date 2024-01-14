@@ -35,7 +35,8 @@ export const Inicio = () => {
   };
 
   const MostrarTrabajos = async () => {
-    const url = "http://localhost:8090/api/trabajos";
+    const url = "https://apuntateback-production.up.railway.app/api/trabajos";
+    //const url = "http://localhost:8090/api/trabajos";
     const resp = await fetch(url);
     const data = await resp.json();
     setTrabajos(data);
@@ -43,7 +44,8 @@ export const Inicio = () => {
 
   const BuscarTrabajoTexto = async () => {
     if(buscadorTexto != ""){
-        const url = `http://localhost:8090/api/trabajo/buscar`;
+      //const url = `http://localhost:8090/api/trabajo/buscar`;
+      const url = `https://apuntateback-production.up.railway.app/api/trabajo/buscar`;
         const resp = await fetch(url,{
             method: 'POST',
             mode: 'cors',
