@@ -112,7 +112,8 @@ export const RegistroUsuario = () => {
         if(data.Token){
           contexto.setToken(data.Token);
           contexto.setUsuario(data.usuario);
-          localStorage.setItem('usuario', data.usuario);
+          localStorage.setItem('correoApuntate', JSON.stringify(email));
+          localStorage.setItem('contraseniaApuntate', JSON.stringify(contrasenia));
           navigate('/inicio');
          }
       })

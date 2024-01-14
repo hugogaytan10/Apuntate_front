@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 import { Inicio } from "../Inicio/Inicio";
 import { Perfil } from "../Perfil/Perfil";
@@ -14,6 +14,7 @@ import { Postulados } from "../Admin/Postulados";
 import { Postulado } from "../Admin/Postulado";
 export const Rutas = () => {
   const contexto = useContext(AppContext);
+  
   return (
     <BrowserRouter>
       <div className="drawer">
@@ -53,12 +54,14 @@ export const Rutas = () => {
                     </NavLink>
                   </li>
                 )}
-                <li>
-                  <NavLink className="text-white text-lg" to="/login">
-                    Iniciar sesión
-                  </NavLink>
-                </li>
-                {contexto.usuario.Empresa_Id != "" && (
+                {contexto.usuario.Nombre == "" && (
+                  <li>
+                    <NavLink className="text-white text-lg" to="/login">
+                      Iniciar sesión
+                    </NavLink>
+                  </li>
+                )}
+                {contexto.usuario.Empresa_Id != null && (
                   <li>
                     <NavLink className="text-white text-lg" to="/inicioAdmin">
                       Administrador
@@ -115,18 +118,20 @@ export const Rutas = () => {
                 </NavLink>
               </li>
             )}
-            <li>
-              <NavLink to="/login" className="text-white text-lg">
-                Iniciar sesión
-              </NavLink>
-            </li>
-            {contexto.usuario.Empresa_Id != "" && contexto.usuario.Empresa_Id != undefined && (
+            {contexto.usuario.Nombre == "" && (
               <li>
-                <NavLink className="text-white text-lg" to="/inicioAdmin">
-                  Administrador
+                <NavLink className="text-white text-lg" to="/login">
+                  Iniciar sesión
                 </NavLink>
               </li>
             )}
+            {contexto.usuario.Empresa_Id != null  && (
+                <li>
+                  <NavLink className="text-white text-lg" to="/inicioAdmin">
+                    Administrador
+                  </NavLink>
+                </li>
+              )}
           </ul>
         </div>
       </div>

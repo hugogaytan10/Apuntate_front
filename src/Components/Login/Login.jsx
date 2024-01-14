@@ -9,6 +9,7 @@ export const Login = () => {
   const contexto = useContext(AppContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [recordar, setRecordar] = useState(false);
 
   const ManejoLogin = () => {
     const usuario = {
@@ -36,6 +37,10 @@ export const Login = () => {
         if (data.usuario) {
           contexto.setUsuario(data.usuario);
           contexto.setToken(data.Token);
+          if(recordar){
+            localStorage.setItem("correoApuntate", JSON.stringify(document.getElementById("correo").value));
+            localStorage.setItem("contraseniaApuntate", JSON.stringify(document.getElementById("pass").value));
+          }
           navigate("/inicio");
           setLoading(false);
         }
@@ -84,6 +89,9 @@ export const Login = () => {
               <input
                 type="checkbox"
                 className="toggle toggle-accent text-primario"
+                onClick={() => {
+                  setRecordar(!recordar);
+                }}
               />
               <span className="label-text text-gray-600">Recordar</span>
             </label>

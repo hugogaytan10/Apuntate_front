@@ -9,7 +9,8 @@ export const DetallesTrabajo = () => {
   const [loader, setLoader] = useState(false);
   const Aplicar = async () => {
     //en caso de que no este logueado, invitar a iniciar sesion
-    if (!contexto.usuario.correo == "") {
+   
+    if (contexto.usuario.Email == "") {
       document.getElementById("my_modal_2").showModal();
     } else {
       setLoader(true);
@@ -18,7 +19,8 @@ export const DetallesTrabajo = () => {
         Usuario_Id: contexto.usuario.Id,
         Trabajo_Id: contexto.trabajo.Id,
       };
-      fetch(`http://localhost:8090/api/oferta/agregar`, {
+      //fetch(`http://localhost:8090/api/oferta/agregar`, {
+      fetch(`https://apuntateback-production.up.railway.app/api/oferta/agregar`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -82,11 +84,21 @@ export const DetallesTrabajo = () => {
                   onClick={() => {
                     setLoader(false);
                   }}
-                  className="bg-blue-500 p-2 rounded-lg text-gray-50  btn w-3/4"
+                  className="p-2 rounded-lg text-gray-600 bg-white border-2  w-1/4"
                   type="submit"
                 >
                   ACEPTAR
                 </button>
+                <NavLink
+                to={"/login"}
+                  onClick={() => {
+                    setLoader(false);
+                  }}
+                  className="bg-primario p-2 rounded-lg text-center text-gray-50 border-2   w-2/4"
+                  type="submit"
+                >
+                  Iniciar sesión
+                </NavLink>
               </div>
             </form>
           </div>
