@@ -45,7 +45,6 @@ export const Inicio = () => {
     //const url = "http://localhost:8090/api/trabajos/ciudades";
     const resp = await fetch(url);
     const data = await resp.json();
-    console.log(data);
     setSuggestions(data);
   };
 
@@ -83,6 +82,22 @@ export const Inicio = () => {
       setTrabajos(data);
       return;
     }
+    if (inputValue !== "") {
+      //const url = `http://localhost:8090/api/trabajo/buscarCiudad`;
+      const url = `https://apuntateback-production.up.railway.app/api/trabajo/buscarCiudad`;
+      const resp = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ ciudad: inputValue }),
+      });
+      const data = await resp.json();
+      setTrabajos(data);
+      return;
+    }
     setIsAvailable(true);
   };
   const Login = async (email, contrasenia) => {
@@ -106,18 +121,42 @@ export const Inicio = () => {
         if (data.usuario) {
           contexto.setUsuario(data.usuario);
           contexto.setToken(data.Token);
-          console.log(data);
         }
       })
       .catch((err) => {});
   };
   const SiguientePagina = () => {
-    setPagination(pagination + 10);
     //fetch que muestre los siguientes 10 trabajos
+    const url = `https://apuntateback-production.up.railway.app/api/trabajos/rango`;
+    //const url = `http://localhost:8090/api/trabajos/rango`;
+    const resp = fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ inicio: pagination, fin: pagination + 10 }),
+    });
+    const data = resp.json();
+    setTrabajos(data);
+    setPagination(pagination + 10);
   };
   const AnteriorPagina = () => {
-    setPagination(pagination - 10);
     //fetch que muestre los siguientes 10 trabajos
+    if (pagination === 0) return;
+    const url = `https://apuntateback-production.up.railway.app/api/trabajos/rango`;
+    //const url = `http://localhost:8090/api/trabajos/rango`;
+    const resp = fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ inicio: pagination - 10, fin: pagination }),
+    });
+    setPagination(pagination - 10);
   };
 
   useEffect(() => {
@@ -132,7 +171,6 @@ export const Inicio = () => {
     }
   }, []);
 
-  useEffect(() => {}, [contexto.usuario]);
 
   return (
     <div className="block min-h-screen w-full bg-fondo">
@@ -160,6 +198,7 @@ export const Inicio = () => {
               document
                 .getElementById("buscadorCiudad")
                 .classList.remove("buscadorCiudad");
+              setFilteredSuggestions([]);
             }
             setSlider(!slider);
           }}
@@ -177,7 +216,7 @@ export const Inicio = () => {
           onChange={handleInputChange}
         />
         {filteredSuggestions.length > 0 && (
-          <ul className="w-full text-center gap-1 h-8 p-2 flex  overflow-y-auto justify-between mb-2">
+          <ul className="w-full text-center gap-1 h-8 p-2 flex overflow-hidden  overflow-x-auto justify-between mb-2">
             {filteredSuggestions.map((suggestion, indx) => (
               <li
                 className="font-bold bg-gris-oscuro text-gray-50 w-1/4 cursor-pointer h-10"
@@ -242,16 +281,20 @@ export const Inicio = () => {
         )}
         <div className="block w-full m-auto">
           <div className="join flex justify-center">
-            <button className="join-item btn btn-outline border-primario text-primario w-1/4">
+            <button
+              onClick={AnteriorPagina}
+              className="join-item btn btn-outline border-primario text-primario w-1/4"
+            >
               Anterior
             </button>
-            <button className="join-item btn btn-outline border-primario text-primario w-1/4">
+            <button
+              onClick={SiguientePagina}
+              className="join-item btn btn-outline border-primario text-primario w-1/4"
+            >
               Siguiente
             </button>
           </div>
         </div>
-
-
       </div>
 
       {/*

@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useNavigate } from "react-router-dom";
 import flecha from "../../assets/arrow-back-green.svg";
 import { AppContext } from "../Contexto/AppContext";
 export const Postulado = () => {
   const contexto = useContext(AppContext);
   const { id } = useParams();
   const [postulado, setPostulado] = useState({});
+  const navigate = useNavigate();
   const CopyToClip = (correo) => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(correo);
     }
   };
-  useEffect(() => {
-    //traemos la informacion del usuario por medio del ID
-    
-    //fetch(`http://localhost:8090/api/usuario/informacion/`, {
-    fetch(`https://apuntateback-production.up.railway.app/api/usuario/informacion/`, {
+  const quitarOferta = () => {
+    //fetch(`http://localhost:8090/api/usuario/eliminar/`, {
+    fetch(`https://apuntateback-production.up.railway.app/api/oferta/quitar`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -23,8 +22,30 @@ export const Postulado = () => {
         Accept: "application/json",
         token: contexto.token,
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ UsuarioId: id, TrabajoId: contexto.trabajo.Id }),
     })
+      .then((res) => res.json())
+      .then((res) => {
+        navigate(`/postuladosAdmin/${contexto.trabajo.Id}`);
+      })
+      .catch((error) => console.log(error));
+  };
+  useEffect(() => {
+    //traemos la informacion del usuario por medio del ID
+    //fetch(`http://localhost:8090/api/usuario/informacion/`, {
+    fetch(
+      `https://apuntateback-production.up.railway.app/api/usuario/informacion/`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          token: contexto.token,
+        },
+        body: JSON.stringify({ id: id }),
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
         setPostulado(res);
@@ -82,7 +103,7 @@ export const Postulado = () => {
         <div
           className="w-1/4 bg-gris-oscuro text-gray-50 rounded-r-md text-center"
           onClick={() => {
-            CopyToClip("Hola@gmail.com");
+            CopyToClip(postulado.Email);
           }}
         >
           COPIAR
@@ -98,7 +119,10 @@ export const Postulado = () => {
         </div>
       </div>
 
-      <button className="btn bg-red-500 text-gray-50 m-auto block mt-10 rounded-sm border-red-500">
+      <button
+        onClick={quitarOferta}
+        className="btn bg-red-500 text-gray-50 m-auto block mt-10 rounded-sm border-red-500"
+      >
         DESCARTAR
       </button>
     </div>

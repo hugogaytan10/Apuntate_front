@@ -9,7 +9,7 @@ export const DetallesTrabajo = () => {
   const [loader, setLoader] = useState(false);
   const Aplicar = async () => {
     //en caso de que no este logueado, invitar a iniciar sesion
-   
+
     if (contexto.usuario.Email == "") {
       document.getElementById("my_modal_2").showModal();
     } else {
@@ -20,15 +20,18 @@ export const DetallesTrabajo = () => {
         Trabajo_Id: contexto.trabajo.Id,
       };
       //fetch(`http://localhost:8090/api/oferta/agregar`, {
-      fetch(`https://apuntateback-production.up.railway.app/api/oferta/agregar`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          'token': contexto.token,
-        },
-        body: JSON.stringify(body),
-      })
+      fetch(
+        `https://apuntateback-production.up.railway.app/api/oferta/agregar`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            token: contexto.token,
+          },
+          body: JSON.stringify(body),
+        }
+      )
         .then((response) => {
           if (response.status === 400) {
             console.log("error");
@@ -57,6 +60,21 @@ export const DetallesTrabajo = () => {
           {contexto.trabajo.Titulo}
         </h3>
         <p className="w-full break-words">{contexto.trabajo.Descripcion}</p>
+        
+        <div className="stats shadow bg-white w-1/4 m-4">
+          <div className="stat">
+            <div className="stat-title text-gray-700">Salario</div>
+            <div className="stat-title text-gray-500">{contexto.trabajo.Salario}</div>
+          </div>
+        </div>
+
+        <div className="stats shadow bg-white w-1/4 m-4">
+          <div className="stat">
+            <div className="stat-title text-gray-700">Ubicación</div>
+            <div className="stat-title text-gray-500">{contexto.trabajo.Ciudad}</div>
+          </div>
+        </div>
+
         <ul className="contenedor-etiquetas flex flex-wrap justify-around items-center gap-2 ">
           <li>{contexto.trabajo.Tiempo}</li>
           <li>{contexto.trabajo.Modalidad}</li>
@@ -90,7 +108,7 @@ export const DetallesTrabajo = () => {
                   ACEPTAR
                 </button>
                 <NavLink
-                to={"/login"}
+                  to={"/login"}
                   onClick={() => {
                     setLoader(false);
                   }}

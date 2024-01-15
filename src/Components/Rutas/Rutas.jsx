@@ -30,7 +30,7 @@ export const Rutas = () => {
     });
     localStorage.removeItem("correoApuntate");
     localStorage.removeItem("correoApuntate");
-  }
+  };
   return (
     <BrowserRouter>
       <div className="drawer">
@@ -53,7 +53,7 @@ export const Rutas = () => {
               </label>
             </div>
             <div className="flex-1 px-2 mx-2 text-gray-50 font-bold justify-center md:justify-start">
-              APUNTATE
+              <NavLink to={'/inicio'}>APUNTATE</NavLink>
             </div>
             <div className="flex-none hidden lg:block ">
               <ul className="menu menu-horizontal">
@@ -84,11 +84,13 @@ export const Rutas = () => {
                     </NavLink>
                   </li>
                 )}
-                    <li>
-                      <NavLink className="text-white text-lg" to="/inicioAdmin">
-                        Administrador
-                      </NavLink>
-                    </li>
+                {contexto.usuario.Empresa_Id != null && (
+                  <li>
+                    <NavLink className="text-white text-lg" to="/inicioAdmin">
+                      Administrador
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -153,11 +155,13 @@ export const Rutas = () => {
                 </NavLink>
               </li>
             )}
-                <li>
-                  <NavLink className="text-white text-lg" to="/inicioAdmin">
-                    Administrador
-                  </NavLink>
-                </li>
+            {contexto.usuario.Empresa_Id != null && (
+              <li>
+                <NavLink className="text-white text-lg" to="/inicioAdmin">
+                  Administrador
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

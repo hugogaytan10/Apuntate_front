@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { ErrorMessage, Formik } from "formik";
 import {
   usuarioCompletoSchema,
@@ -9,22 +9,45 @@ import { Usuario } from "../Modelos/Usuario";
 import { clickBtn } from "../Login/confetti";
 export const Perfil = () => {
   const contexto = useContext(AppContext);
+  const refContrasenia = useRef<HTMLInputElement>(null);
   const ActualizarInformacion = (usuario: Usuario) => {
     //fetch("http://localhost:8090/api/usuario/actualizar", {
-    fetch("https://apuntateback-production.up.railway.app/api/usuario/actualizar", {
-      method: "POST",
-      body: JSON.stringify(usuario),
-      headers: {
-        "Content-Type": "application/json",
-        token: contexto.token,
-      },
-    })
+    fetch(
+      "https://apuntateback-production.up.railway.app/api/usuario/actualizar",
+      {
+        method: "POST",
+        body: JSON.stringify(usuario),
+        headers: {
+          "Content-Type": "application/json",
+          token: contexto.token,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data) {
           clickBtn();
           contexto.setUsuario(usuario);
-        } 
+          if (window.localStorage.getItem("correoApuntate")) {
+            localStorage.setItem(
+              "correoApuntate",
+              JSON.stringify(contexto.usuario.Email)
+            );
+            localStorage.setItem(
+              "contraseniaApuntate",
+              JSON.stringify(refContrasenia)
+            );
+          }else{
+            window.localStorage.setItem(
+              "correoApuntate",
+              JSON.stringify(contexto.usuario.Email)
+            );
+            window.localStorage.setItem(
+              "contraseniaApuntate",
+              JSON.stringify(refContrasenia.current?.value ?? "")
+            );
+          }
+        }
       })
       .catch((err) => {
         alert("Ocurrió un error al actualizar los datos");
@@ -44,6 +67,7 @@ export const Perfil = () => {
           estadoCivil: contexto.usuario.EstadoCivil || "",
           fecha: contexto.usuario.FechaNac || "",
           direccion: contexto.usuario.Direccion || "",
+          ciudad: contexto.usuario.Ciudad || "",
           contrasenia: "",
           confirmarContrasenia: "",
         }}
@@ -61,6 +85,7 @@ export const Perfil = () => {
             Edad: contexto.usuario.Edad,
             estado: contexto.usuario.estado,
             EstadoCivil: values.estadoCivil,
+            Ciudad: values.ciudad,
             FechaNac: values.fecha,
             Telefono: values.telefono,
             Apellido: values.apellido,
@@ -175,7 +200,29 @@ export const Perfil = () => {
                   <option>divorciado/a</option>
                 </select>
               </div>
-
+              {errors.ciudad && touched.ciudad && (
+                <ErrorMessage
+                  name="estadoCivil"
+                  component="div"
+                  className="error"
+                />
+              )}
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder=" "
+                  id="ciudad"
+                  name="ciudad"
+                  className="bg-white"
+                  onChange={handleChange("ciudad")}
+                  onBlur={handleBlur("ciudad")}
+                  value={values.direccion}
+                />
+                <label>Ciudad</label>
+              </div>
+              {errors.ciudad && touched.ciudad && (
+                <ErrorMessage name="ciudad" component="div" className="error" />
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -218,6 +265,7 @@ export const Perfil = () => {
 
               <div className="form-group">
                 <input
+                  ref={refContrasenia}
                   type="password"
                   className="bg-white"
                   placeholder=" "

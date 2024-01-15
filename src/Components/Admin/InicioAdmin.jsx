@@ -20,6 +20,20 @@ export const InicioAdmin = () => {
     EmpresaId: "",
     Ciudad: "",
   });
+  const [filtroTrabajo, setFiltroTrabajo] = useState([
+    {
+      Titulo: "",
+      Descripcion: "",
+      Salario: "",
+      Direccion: "",
+      Tiempo: "",
+      Empresa: "",
+      Contrato: "",
+      Modalidad: "",
+      EmpresaId: "",
+      Ciudad: "",
+    },
+  ]);
   const [trabajos, setTrabajos] = useState([]);
   const agregarTrabajo = (nuevoTrabajo) => {
     //fetch("http://localhost:8090/api/trabajo/agregar", {
@@ -76,6 +90,7 @@ export const InicioAdmin = () => {
       .then((resp) => resp.json())
       .then((data) => {
         setTrabajos(data);
+        setFiltroTrabajo(data);
       })
       .catch((err) => console.log(err));
   };

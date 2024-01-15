@@ -24,7 +24,8 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     Telefono: "",
     Apellido: "",
     Direccion: "",
-    Empresa_Id: "",
+    Empresa_Id: null,
+    Ciudad: ""
   });
   const [trabajo, setTrabajo] = useState<Trabajo>({} as Trabajo);
   const [token, setToken] = useState<string>("");

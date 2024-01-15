@@ -15,6 +15,6 @@ export type Usuario = {
     Ciudad: string;
     CodigoPostal: string;
     Direccion: string;  
-    Empresa_Id?: string;
+    Empresa_Id?: string | null;
 }
 
