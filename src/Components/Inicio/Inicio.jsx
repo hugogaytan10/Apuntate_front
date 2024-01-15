@@ -12,6 +12,8 @@ export const Inicio = () => {
   const [trabajos, setTrabajos] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [slider, setSlider] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(true);
+  const [pagination, setPagination] = useState(10);
   const handleInputChange = (e) => {
     const userInput = e.target.value;
     setInputValue(userInput);
@@ -48,6 +50,7 @@ export const Inicio = () => {
   };
 
   const BuscarTrabajoTexto = async () => {
+    setIsAvailable(false);
     if (buscadorTexto !== "" && inputValue !== "") {
       const url = `https://apuntateback-production.up.railway.app/api/trabajos/buscarTextoCiudad`;
       //const url = `http://localhost:8090/api/trabajos/buscarTextoCiudad`;
@@ -80,6 +83,7 @@ export const Inicio = () => {
       setTrabajos(data);
       return;
     }
+    setIsAvailable(true);
   };
   const Login = async (email, contrasenia) => {
     const usuario = {
@@ -102,24 +106,34 @@ export const Inicio = () => {
         if (data.usuario) {
           contexto.setUsuario(data.usuario);
           contexto.setToken(data.Token);
-          console.log(data)
+          console.log(data);
         }
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
+  const SiguientePagina = () => {
+    setPagination(pagination + 10);
+    //fetch que muestre los siguientes 10 trabajos
+  };
+  const AnteriorPagina = () => {
+    setPagination(pagination - 10);
+    //fetch que muestre los siguientes 10 trabajos
+  };
+
   useEffect(() => {
     BuscarCiudades();
     MostrarTrabajos();
     if (window.localStorage.getItem("correoApuntate")) {
       const correo = JSON.parse(window.localStorage.getItem("correoApuntate"));
-      const contrasenia = JSON.parse(window.localStorage.getItem("contraseniaApuntate"));
+      const contrasenia = JSON.parse(
+        window.localStorage.getItem("contraseniaApuntate")
+      );
       Login(correo, contrasenia);
     }
   }, []);
-  useEffect(()=>{
-    console.log(contexto.usuario)
-  },[contexto.usuario])
+
+  useEffect(() => {}, [contexto.usuario]);
+
   return (
     <div className="block min-h-screen w-full bg-fondo">
       <div className="contenedor-buscador">
@@ -177,6 +191,7 @@ export const Inicio = () => {
         )}
 
         <button
+          disabled={!isAvailable}
           onClick={BuscarTrabajoTexto}
           className="block m-auto w-2/4 bg-primario text-gray-50 rounded-sm p-1 mb-2 md:w-1/4"
         >
@@ -225,6 +240,18 @@ export const Inicio = () => {
             </h3>
           </div>
         )}
+        <div className="block w-full m-auto">
+          <div className="join flex justify-center">
+            <button className="join-item btn btn-outline border-primario text-primario w-1/4">
+              Anterior
+            </button>
+            <button className="join-item btn btn-outline border-primario text-primario w-1/4">
+              Siguiente
+            </button>
+          </div>
+        </div>
+
+
       </div>
 
       {/*

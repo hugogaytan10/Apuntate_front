@@ -14,7 +14,23 @@ import { Postulados } from "../Admin/Postulados";
 import { Postulado } from "../Admin/Postulado";
 export const Rutas = () => {
   const contexto = useContext(AppContext);
-  
+  const Salir = () => {
+    //limipiar contexto y localstorage
+    contexto.setUsuario({
+      Nombre: "",
+      Apellido: "",
+      Correo: "",
+      Telefono: "",
+      Empresa_Id: "",
+      Empresa_Nombre: "",
+      Empresa_Telefono: "",
+      Empresa_Correo: "",
+      Empresa_Direccion: "",
+      Empresa_Logo: "",
+    });
+    localStorage.removeItem("correoApuntate");
+    localStorage.removeItem("correoApuntate");
+  }
   return (
     <BrowserRouter>
       <div className="drawer">
@@ -61,13 +77,21 @@ export const Rutas = () => {
                     </NavLink>
                   </li>
                 )}
-                {contexto.usuario.Empresa_Id != null && (
+                {contexto.usuario.Nombre != "" && (
                   <li>
-                    <NavLink className="text-white text-lg" to="/inicioAdmin">
-                      Administrador
+                    <NavLink className="text-white text-lg" to="/login">
+                      Salir
                     </NavLink>
                   </li>
                 )}
+                {contexto.usuario.Empresa_Id != null ||
+                  (contexto.usuario.Empresa_Id != "" && (
+                    <li>
+                      <NavLink className="text-white text-lg" to="/inicioAdmin">
+                        Administrador
+                      </NavLink>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -125,13 +149,21 @@ export const Rutas = () => {
                 </NavLink>
               </li>
             )}
-            {contexto.usuario.Empresa_Id != null  && (
+            {contexto.usuario.Nombre != "" && (
+              <li onClick={Salir}>
+                <NavLink className="text-white text-lg" to="/login">
+                  Salir
+                </NavLink>
+              </li>
+            )}
+            {contexto.usuario.Empresa_Id != null ||
+              (contexto.usuario.Empresa_Id != "" && (
                 <li>
                   <NavLink className="text-white text-lg" to="/inicioAdmin">
                     Administrador
                   </NavLink>
                 </li>
-              )}
+              ))}
           </ul>
         </div>
       </div>
