@@ -169,6 +169,7 @@ export const Inicio = () => {
       );
       Login(correo, contrasenia);
     }
+    console.log(contexto.usuario)
   }, []);
 
 
