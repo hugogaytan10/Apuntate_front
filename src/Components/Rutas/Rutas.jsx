@@ -84,14 +84,11 @@ export const Rutas = () => {
                     </NavLink>
                   </li>
                 )}
-                {contexto.usuario.Empresa_Id != null ||
-                  (contexto.usuario.Empresa_Id != "" && (
                     <li>
                       <NavLink className="text-white text-lg" to="/inicioAdmin">
                         Administrador
                       </NavLink>
                     </li>
-                  ))}
               </ul>
             </div>
           </div>
@@ -156,14 +153,11 @@ export const Rutas = () => {
                 </NavLink>
               </li>
             )}
-            {contexto.usuario.Empresa_Id != null ||
-              (contexto.usuario.Empresa_Id != "" && (
                 <li>
                   <NavLink className="text-white text-lg" to="/inicioAdmin">
                     Administrador
                   </NavLink>
                 </li>
-              ))}
           </ul>
         </div>
       </div>
