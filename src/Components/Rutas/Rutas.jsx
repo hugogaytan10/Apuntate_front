@@ -17,16 +17,23 @@ export const Rutas = () => {
   const Salir = () => {
     //limipiar contexto y localstorage
     contexto.setUsuario({
+      Id: "",
+      Email: "",
+      tipo: "",
+      Contrasenia: "",
       Nombre: "",
       Apellido: "",
-      Correo: "",
+      Edad: "",
       Telefono: "",
-      Empresa_Id: "",
-      Empresa_Nombre: "",
-      Empresa_Telefono: "",
-      Empresa_Correo: "",
-      Empresa_Direccion: "",
-      Empresa_Logo: "",
+      EstadoCivil: "",
+      FechaNac: "",
+      Calle: "",
+      colonia: "",
+      estado: "",
+      Ciudad: "",
+      CodigoPostal: "",
+      Direccion: "",
+      Empresa_Id: null
     });
     localStorage.removeItem("correoApuntate");
     localStorage.removeItem("correoApuntate");
