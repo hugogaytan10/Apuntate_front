@@ -20,20 +20,7 @@ export const InicioAdmin = () => {
     EmpresaId: "",
     Ciudad: "",
   });
-  const [filtroTrabajo, setFiltroTrabajo] = useState([
-    {
-      Titulo: "",
-      Descripcion: "",
-      Salario: "",
-      Direccion: "",
-      Tiempo: "",
-      Empresa: "",
-      Contrato: "",
-      Modalidad: "",
-      EmpresaId: "",
-      Ciudad: "",
-    },
-  ]);
+  const [filtroTrabajo, setFiltroTrabajo] = useState([]);
   const [trabajos, setTrabajos] = useState([]);
   const agregarTrabajo = (nuevoTrabajo) => {
     //fetch("http://localhost:8090/api/trabajo/agregar", {
@@ -116,9 +103,18 @@ export const InicioAdmin = () => {
       })
       .catch((err) => console.log(err));
   };
+  const filtrarTrabajo = (texto) => {
+    const resultado = trabajos.filter((trabajo) =>
+      trabajo.Titulo.toLowerCase().includes(texto.toLowerCase())
+    );
+    setFiltroTrabajo(resultado);
+  };
+  
+ 
   useEffect(() => {
     conseguirTrabajos();
-  }, [trabajos, trabajo]);
+  }, []);
+  
   return (
     <div className="block min-h-screen w-full bg-fondo ">
       <div className="contenedor-buscador">
@@ -128,15 +124,17 @@ export const InicioAdmin = () => {
             type="text"
             className="inputBuscador"
             placeholder="Buscar empleo"
+            onChange={(e) => {filtrarTrabajo(e.target.value)}}
           />
           <img src={buscador} alt="buscador" />
         </div>
-        <button className="block m-auto w-2/4 bg-primario text-gray-50 rounded-sm p-1 mb-2 md:w-1/4">
-          BUSCAR
-        </button>
+
       </div>
       <div className="flex flex-wrap w-full justify-center mt-4 gap-4">
-        {trabajos.map((trabajo, index) => {
+
+        {
+        
+        filtroTrabajo.map((trabajo, index) => {
           return (
             <div
               key={`empleo_${index}`}
@@ -184,7 +182,9 @@ export const InicioAdmin = () => {
               </div>
             </div>
           );
-        })}
+        })
+        
+        }
       </div>
 
       <button

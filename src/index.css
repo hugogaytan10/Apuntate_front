@@ -17,7 +17,7 @@
         --detalles: #858585;
     }
     .calendario{
-        background-color: #5BA4A4;
+        background-color: #fff;
         color: #212121;
     }
     .calendario::placeholder{

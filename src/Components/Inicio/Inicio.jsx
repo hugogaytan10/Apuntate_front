@@ -13,7 +13,7 @@ export const Inicio = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [slider, setSlider] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
-  const [pagination, setPagination] = useState(10);
+  const [pagination, setPagination] = useState(0);
   const handleInputChange = (e) => {
     const userInput = e.target.value;
     setInputValue(userInput);
@@ -63,6 +63,7 @@ export const Inicio = () => {
         body: JSON.stringify({ texto: buscadorTexto, ciudad: inputValue }),
       });
       const data = await resp.json();
+      setIsAvailable(true);
       setTrabajos(data);
       return;
     }
@@ -79,12 +80,13 @@ export const Inicio = () => {
         body: JSON.stringify({ texto: buscadorTexto }),
       });
       const data = await resp.json();
+      setIsAvailable(true);
       setTrabajos(data);
       return;
     }
     if (inputValue !== "") {
-      //const url = `http://localhost:8090/api/trabajo/buscarCiudad`;
-      const url = `https://apuntateback-production.up.railway.app/api/trabajo/buscarCiudad`;
+      //const url = `http://localhost:8090/api/trabajos/buscarCiudad`;
+      const url = `https://apuntateback-production.up.railway.app/api/trabajos/buscarCiudad`;
       const resp = await fetch(url, {
         method: "POST",
         mode: "cors",
@@ -96,9 +98,8 @@ export const Inicio = () => {
       });
       const data = await resp.json();
       setTrabajos(data);
-      return;
+      setIsAvailable(true);
     }
-    setIsAvailable(true);
   };
   const Login = async (email, contrasenia) => {
     const usuario = {
@@ -125,11 +126,11 @@ export const Inicio = () => {
       })
       .catch((err) => {});
   };
-  const SiguientePagina = () => {
+  const SiguientePagina = async () => {
     //fetch que muestre los siguientes 10 trabajos
     const url = `https://apuntateback-production.up.railway.app/api/trabajos/rango`;
     //const url = `http://localhost:8090/api/trabajos/rango`;
-    const resp = fetch(url, {
+    const resp = await fetch(url, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -138,16 +139,16 @@ export const Inicio = () => {
       },
       body: JSON.stringify({ inicio: pagination, fin: pagination + 10 }),
     });
-    const data = resp.json();
+    const data = await resp.json();
     setTrabajos(data);
     setPagination(pagination + 10);
   };
-  const AnteriorPagina = () => {
+  const AnteriorPagina = async () => {
     //fetch que muestre los siguientes 10 trabajos
     if (pagination === 0) return;
     const url = `https://apuntateback-production.up.railway.app/api/trabajos/rango`;
     //const url = `http://localhost:8090/api/trabajos/rango`;
-    const resp = fetch(url, {
+    const resp = await fetch(url, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -156,6 +157,9 @@ export const Inicio = () => {
       },
       body: JSON.stringify({ inicio: pagination - 10, fin: pagination }),
     });
+    const data = await resp.json();
+    setTrabajos(data);
+    console.log(pagination, data)
     setPagination(pagination - 10);
   };
 
@@ -169,9 +173,7 @@ export const Inicio = () => {
       );
       Login(correo, contrasenia);
     }
-    console.log(contexto.usuario)
   }, []);
-
 
   return (
     <div className="block min-h-screen w-full bg-fondo">
@@ -231,7 +233,6 @@ export const Inicio = () => {
         )}
 
         <button
-          disabled={!isAvailable}
           onClick={BuscarTrabajoTexto}
           className="block m-auto w-2/4 bg-primario text-gray-50 rounded-sm p-1 mb-2 md:w-1/4"
         >
