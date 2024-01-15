@@ -65,40 +65,46 @@ export const Postulados = () => {
         <img src={flecha} alt="regreso" />
       </NavLink>
       <div className="flex flex-wrap w-full justify-center mt-4 gap-4">
-        {postulados.map((postulado, idx) => {
-          return (
-            <div
-              className="contenedor-empleo relative flex flex-wrap md:w-4/12"
-              key={`postulado_${idx}`}
-            >
-              <span className="franja-lateral"></span>
-              <p className="block w-full ml-4 font-bold text-lg text-gray-600">
-                {postulado.Nombre}
-              </p>
+        {postulados.length > 0 ? (
+          postulados.map((postulado, idx) => {
+            return (
+              <div
+                className="contenedor-empleo relative flex flex-wrap md:w-4/12"
+                key={`postulado_${idx}`}
+              >
+                <span className="franja-lateral"></span>
+                <p className="block w-full ml-4 font-bold text-lg text-gray-600">
+                  {postulado.Nombre}
+                </p>
 
-              <div className="flex justify-around w-full">
-                <NavLink
-                  className="bg-primario btn text-gray-50 m-auto w-5/12 p-1 rounded-sm text-base text-center"
-                  to={`/postulado/${postulado.Usuario_Id}`}
-                >
-                  Ver postulante
-                </NavLink>
-                <button
-                  onClick={() => {
-                    setEliminar({
-                      postuladoId: postulado.Usuario_Id,
-                      trabajoId: contexto.trabajo.Id,
-                    });
-                    document.getElementById("my_modal_3").showModal();
-                  }}
-                  className="bg-white btn border-red-500 text-red-500 m-auto  p-1 rounded-sm text-base text-center"
-                >
-                  Eliminar
-                </button>
+                <div className="flex justify-around w-full">
+                  <NavLink
+                    className="bg-primario btn text-gray-50 m-auto w-5/12 p-1 rounded-sm text-base text-center"
+                    to={`/postulado/${postulado.Usuario_Id}`}
+                  >
+                    Ver postulante
+                  </NavLink>
+                  <button
+                    onClick={() => {
+                      setEliminar({
+                        postuladoId: postulado.Usuario_Id,
+                        trabajoId: contexto.trabajo.Id,
+                      });
+                      document.getElementById("my_modal_3").showModal();
+                    }}
+                    className="bg-white btn border-red-500 text-red-500 m-auto  p-1 rounded-sm text-base text-center"
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div className="w-full flex justify-center">
+            <p className="text-2xl text-gray-600">No hay postulados aún</p>
+          </div>
+        )}
       </div>
 
       {/* MODAL DE ELIMINAR */}

@@ -61,14 +61,14 @@ export const DetallesTrabajo = () => {
         </h3>
         <p className="w-full break-words">{contexto.trabajo.Descripcion}</p>
         
-        <div className="stats shadow bg-white w-1/4 m-4">
+        <div className="stats shadow bg-white w-1/3 m-4">
           <div className="stat">
             <div className="stat-title text-gray-700">Salario</div>
             <div className="stat-title text-gray-500">{contexto.trabajo.Salario}</div>
           </div>
         </div>
 
-        <div className="stats shadow bg-white w-1/4 m-4">
+        <div className="stats shadow bg-white w-1/3 m-4">
           <div className="stat">
             <div className="stat-title text-gray-700">Ubicación</div>
             <div className="stat-title text-gray-500">{contexto.trabajo.Ciudad}</div>
