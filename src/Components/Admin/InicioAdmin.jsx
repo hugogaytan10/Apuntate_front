@@ -38,6 +38,7 @@ export const InicioAdmin = () => {
       .then((resp) => resp.json())
       .then((data) => {
         document.getElementById("my_modal_1").close();
+        conseguirTrabajos();
       })
       .catch((err) => console.log(err));
   };
