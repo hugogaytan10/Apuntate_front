@@ -60,6 +60,7 @@ export const Postulado = () => {
       >
         <img src={flecha} alt="regreso" />
       </NavLink>
+      
       <div className="flex w-full md:w-1/2 mt-10 m-auto rounded-md h-10 ">
         <div className="w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center">
           Nombre
@@ -69,7 +70,7 @@ export const Postulado = () => {
         </div>
       </div>
 
-      <div className="flex w-full md:w-1/2 mt-10 m-auto rounded-md h-10 ">
+      <div className="flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 ">
         <div className="w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center">
           Ciudad
         </div>
@@ -110,7 +111,7 @@ export const Postulado = () => {
         </div>
       </div>
 
-      <div className="flex w-full md:w-1/2 mt-2 m-auto rounded-md h-10 ">
+      <div className="flex w-full md:w-1/2 mt-2 m-auto rounded-md h-16 ">
         <div className="w-1/4 bg-gris-oscuro text-gray-50 rounded-l-md text-center">
           Dirección
         </div>
