@@ -171,6 +171,8 @@ export const Inicio = () => {
       const contrasenia = JSON.parse(
         window.localStorage.getItem("contraseniaApuntate")
       );
+      
+
       Login(correo, contrasenia);
     }
   }, []);

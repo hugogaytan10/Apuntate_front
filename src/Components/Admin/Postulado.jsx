@@ -86,7 +86,7 @@ export const Postulado = () => {
           {postulado.Telefono}
         </div>
         <a
-          className="w-1/4 bg-gris-oscuro text-gray-50 rounded-r-md text-center"
+          className="w-1/4 bg-gris-oscuro text-gray-50 rounded-r-md text-center cursor-pointer"
           href={`tel:+52${postulado.Telefono}}`}
         >
           Llamar
@@ -101,7 +101,7 @@ export const Postulado = () => {
           {postulado.Email}
         </div>
         <div
-          className="w-1/4 bg-gris-oscuro text-gray-50 rounded-r-md text-center"
+          className="w-1/4 bg-gris-oscuro text-gray-50 rounded-r-md text-center cursor-pointer"
           onClick={() => {
             CopyToClip(postulado.Email);
           }}

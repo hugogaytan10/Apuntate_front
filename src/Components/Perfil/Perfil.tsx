@@ -216,7 +216,7 @@ export const Perfil = () => {
                   className="bg-white"
                   onChange={handleChange("ciudad")}
                   onBlur={handleBlur("ciudad")}
-                  value={values.direccion}
+                  value={values.ciudad}
                 />
                 <label>Ciudad</label>
               </div>

@@ -36,7 +36,7 @@ export const Rutas = () => {
       Empresa_Id: null
     });
     localStorage.removeItem("correoApuntate");
-    localStorage.removeItem("correoApuntate");
+    localStorage.removeItem("contraseniaApuntate");
   };
   return (
     <BrowserRouter>
@@ -137,34 +137,34 @@ export const Rutas = () => {
           <ul className="menu p-4 w-80 min-h-full bg-gris-oscuro">
             {/* Sidebar content here */}
             <li>
-              <NavLink to="/inicio" className="text-white text-lg">
+              <NavLink to="/inicio" className="text-white text-lg" onClick={()=>{document.getElementById("my-drawer-3").checked = false}}>
                 Inicio
               </NavLink>
             </li>
             {contexto.usuario.Nombre != "" && (
               <li>
-                <NavLink className="text-white text-lg" to="/perfil">
+                <NavLink className="text-white text-lg" to="/perfil" onClick={()=>{document.getElementById("my-drawer-3").checked = false}}>
                   Perfil
                 </NavLink>
               </li>
             )}
             {contexto.usuario.Nombre == "" && (
               <li>
-                <NavLink className="text-white text-lg" to="/login">
+                <NavLink className="text-white text-lg" to="/login" onClick={()=>{document.getElementById("my-drawer-3").checked = false}}>
                   Iniciar sesión
                 </NavLink>
               </li>
             )}
             {contexto.usuario.Nombre != "" && (
               <li onClick={Salir}>
-                <NavLink className="text-white text-lg" to="/login">
+                <NavLink className="text-white text-lg" to="/login" onClick={()=>{document.getElementById("my-drawer-3").checked = false}}>
                   Salir
                 </NavLink>
               </li>
             )}
             {contexto.usuario.Empresa_Id != null && (
               <li>
-                <NavLink className="text-white text-lg" to="/inicioAdmin">
+                <NavLink className="text-white text-lg" to="/inicioAdmin" onClick={()=>{document.getElementById("my-drawer-3").checked = false}}>
                   Administrador
                 </NavLink>
               </li>
